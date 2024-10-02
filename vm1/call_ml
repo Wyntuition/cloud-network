@@ -1,0 +1,47 @@
+import requests
+import base64
+import os
+import sys
+import json
+
+def encode_image(image_path):
+    """Encodes an image at the given path to a base64 string."""
+    try:
+        with open(image_path, "rb") as image_file:
+            return base64.b64encode(image_file.read()).decode('utf-8')
+    except Exception as e:
+        print(f"Error encoding image: {e}")
+        return None
+
+# Path to the image
+image_path = os.path.expanduser('~/Downloads/cat03.jpg')
+print(f"Attempting to encode image: {image_path}")
+base64_image = encode_image(image_path)
+
+if base64_image is None:
+    print("Failed to encode image. Exiting.")
+    sys.exit(1)
+
+print("Image encoded successfully.")
+
+# Use the Ngrok HTTPS URL
+url = 'https://7b30-129-114-26-86.ngrok-free.app/predict'
+print(f"Sending POST request to: {url}")
+
+try:
+    # Send the POST request with the encoded image
+    response = requests.post(url, json={'image': base64_image}, timeout=10)
+
+    print(f"Response status code: {response.status_code}")
+    print(f"Response headers: {response.headers}")
+    print(f"Response content: {response.text}")
+
+    if response.status_code == 200:
+        prediction = response.json().get('prediction')
+        print(f"Prediction: {prediction}")
+    else:
+        print(f"Error: HTTP {response.status_code}")
+        print(f"Response content: {response.text}")
+except requests.exceptions.RequestException as e:
+    print(f"An error occurred while making the request: {e}")
+

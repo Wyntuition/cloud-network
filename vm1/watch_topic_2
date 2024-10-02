@@ -1,0 +1,1 @@
+exec kafka_2.13-3.7.1/bin/kafka-console-consumer.sh --topic ml_predictions --bootstrap-server 192.168.5.221:9092 --from-beginning
