@@ -1,7 +1,7 @@
 ---
 - name: "Create VMs on Chameleon Cloud"
   openstack.cloud.server:
-    cloud: "CH-822922"
+    cloud: "{{ cloud }}
     name: "{{ vm_name_prefix }}-{{ item }}"
     flavor: "{{ vm_flavor }}"
     image: "{{ vm_image }}"
