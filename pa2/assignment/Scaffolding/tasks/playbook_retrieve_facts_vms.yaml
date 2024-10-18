@@ -8,5 +8,5 @@
 
 - name: "Display private IP addresses of the VMs"
   debug:
-    msg: "VM {{ item.server.name }} has private IP {{ item.server.private_v4 }}"
-  loop: "{{ vm_facts.openstack_servers }}"
+    msg: "VM {{ item.servers[0].name }} has private IP {{ item.servers[0].addresses['CH-822922-net'][0].addr }}"
+  loop: "{{ vm_facts.results }}"
