@@ -25,7 +25,7 @@ cloud_user: cc  # user on chameleon VMs is cc
 # variables.yaml
 
 # Prefix to use for naming the VMs
-vm_name_prefix: "chameleon-vm"
+vm_name_prefix: "team5a"
 
 # Flavor of the VM (VM size)
 vm_flavor: "m1.medium"

@@ -35,25 +35,3 @@
   tasks:    # the task to be performed
   # @@ You have to write the following child playbook @@
   - import_tasks: tasks/playbook_create_vms.yaml
-
-  #####################################################
-### Play 3: Get facts from Cloud VM
-#
-# In this play, you must retrieve various facts of the
-# VMs you have created. The most important are their
-# private IP addresses that you will need in subsequent
-# plays
-#####################################################
-- name: "Play 3: Perform fact gathering on all Cloud VMs"
-  hosts: LocalMC  # specified in the Inventory file
-  remote_user:  "{{ local_user }}"
-
-  gather_facts: no
-  become: false
-  collections:
-  - ansible-base
-  - openstack.cloud.collection
-
-  tasks:    # the task to be performed
-  # @@ You have to write the following child playbook @@
-  - import_tasks: tasks/playbook_retrieve_facts_vms.yaml
