@@ -1,42 +1,44 @@
 ---
 
-# ################################################################
-# ### Play 1: check if required variables are defined or not.
-# #           If not defined then simply exit the entire play
-# #
-# ################################################################
-# - name: "Check if required variables that drive the deployment are defined"
-#   hosts: LocalMC   # this alias is specified in the inventory file
-#   remote_user:  "{{ local_user }}"  # since the play executes on LocalMC,
-#                                     # we use the local user
-#   gather_facts: no
-#   collections:    # collections is like import the necessary Ansible
-#                   # galaxy packages needed for the play to execute
-#   - ansible-base
+################################################################
+### Play 1: check if required variables are defined or not.
+#           If not defined then simply exit the entire play
+#
+################################################################
+- name: "Check if required variables that drive the deployment are defined"
+  hosts: LocalMC   # this alias is specified in the inventory file
+  remote_user:  "{{ local_user }}"  # since the play executes on LocalMC,
+                                    # we use the local user
+  gather_facts: no
+  collections:    # collections is like import the necessary Ansible
+                  # galaxy packages needed for the play to execute
+  - ansible-base
 
-#   tasks:
-#   # @@ You have to write the following child playbook @@
-#   - import_tasks: tasks/playbook_check_variables.yaml
+  tasks:
+  # @@ You have to write the following child playbook @@
+  - import_tasks: tasks/playbook_check_variables.yaml
 
 
-# #####################################################
-# ### Play 2: Create VMs on the Cloud
-# #
-# #####################################################
-# - name: "Play 2: Create VMs on Chameleon"
-#   hosts: LocalMC   # this alias is specified in the Inventory file
-#   remote_user:  "{{ local_user }}" 
-#   gather_facts: no 
-#   become: false    # No need for sudo as we are not installing anything
-#   collections:
-#   - ansible-base
-#   - openstack.cloud.collection
+#####################################################
+### Play 2: Create VMs on the Cloud
+#
+#####################################################
+- name: "Play 2: Create VMs on Chameleon"
+  hosts: LocalMC   # this alias is specified in the Inventory file
+  remote_user:  "{{ local_user }}" 
+  gather_facts: no 
+  become: false    # No need for sudo as we are not installing anything
+  collections:
+  - ansible-base
+  - openstack.cloud.collection
   
-#   tasks:    # the task to be performed
-#   # @@ You have to write the following child playbook @@
-#   - import_tasks: tasks/playbook_create_vms.yaml
+  tasks:    # the task to be performed
+  # @@ You have to write the following child playbook @@
+  - import_tasks: tasks/playbook_create_vms.yaml
 
-  #####################################################
+  ####################################################
+
+
 ### Play 3: Get facts from Cloud VM
 #
 # In this play, you must retrieve various facts of the
@@ -57,3 +59,18 @@
   tasks:    # the task to be performed
   # @@ You have to write the following child playbook @@
   - import_tasks: tasks/playbook_retrieve_facts_vms.yaml
+
+# - name: "Play 4 - Install various packages on Cloud VMs"
+#   hosts: LocalMC   # specified in the Inventory file
+#   remote_user: "{{ cloud_user }}" # since this play operates on the cloud
+#                                   # VMs, the user on those VMs is the
+#                                   # cloud_user variable
+#   become: true  # by setting this, we perform operations with sudo privilege
+#   gather_facts: no
+#   collections:
+#   - ansible-base
+
+#   tasks:    # the task to be performed
+#   # @@ You have to write the following child playbooks @@
+#   - import_tasks: tasks/playbook_install_apt_packages.yaml
+#   - import_tasks: tasks/playbook_install_pip_packages.yaml

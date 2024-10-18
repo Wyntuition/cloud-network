@@ -7,6 +7,12 @@
     image: "{{ vm_image }}"
     network: "{{ vm_network }}"
     key_name: "{{ vm_keypair }}"
+    security_groups:
+      - "ENABLE_HTTP_HTTPS"
+      - "ENABLE_SSH"
+      - "ENABLE_ICMP"
+      - "ENABLE_ZMQ_APPS"
+      - "ENABLE_ZOOKEEPER"
     auto_ip: yes
     wait: yes
     timeout: 600
