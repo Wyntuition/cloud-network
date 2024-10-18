@@ -28,22 +28,23 @@ cloud_user: cc  # user on chameleon VMs is cc
 vm_name_prefix: "chameleon-vm"
 
 # Flavor of the VM (VM size)
-vm_flavor: "m1.medium"  # Adjust to the flavor you need
+vm_flavor: "m1.medium"
 
 # Image ID or name to use for the VM
-vm_image: "Ubuntu-22.04"  # Replace with the correct image for your project
+vm_image: "CC-Ubuntu22.04"
 
 # Network to attach the VMs to
-vm_network: "private"
+vm_network: "CH-822922-net"
 
 # SSH keypair to use for accessing the VMs
-vm_keypair: "my-ssh-key"  # Replace with the name of your keypair
+vm_keypair: "team5kp"
 
 # Number of VMs to create
-vm_count: 4  # Set the desired number of VMs to create
+vm_count: 4
 
 # Timeout in seconds for the VM creation process
 vm_creation_timeout: 600
 
+cloud: CH-822922
 
 ...
