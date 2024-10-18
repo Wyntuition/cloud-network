@@ -1,0 +1,8 @@
+# variables.yaml
+
+vm_name_prefix: "webserver"
+vm_flavor: "m1.small"
+vm_image: "Ubuntu-20.04"
+vm_network: "private_network"
+vm_keypair: "my_keypair"
+vm_count: 2

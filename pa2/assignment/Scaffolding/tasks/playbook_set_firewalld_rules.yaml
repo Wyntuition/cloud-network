@@ -1,0 +1,21 @@
+---
+- name: "Ensure firewalld is installed"
+  yum:
+    name: firewalld
+    state: present
+
+- name: "Start firewalld service"
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: "Allow Kafka port in firewalld"
+  firewalld:
+    port: 9092/tcp
+    permanent: true
+    state: enabled
+
+- name: "Reload firewalld"
+  firewalld:
+    state: reloaded

@@ -1,0 +1,55 @@
+---
+- name: Deploy VMs and Install Software
+  hosts: LocalMC
+  gather_facts: no
+  become: false
+  vars_files:
+  - variables.yaml
+  tasks:
+    # Step 1: Create VM(s) using the cloud provider's Ansible module
+    - name: Create VMs on OpenStack (or any cloud provider)
+      openstack.cloud.server:
+        cloud: mycloud
+        name: "{{ vm_name_prefix }}-{{ item }}"
+        flavor: "{{ vm_flavor }}"
+        image: "{{ vm_image }}"
+        network: "{{ vm_network }}"
+        key_name: "{{ vm_keypair }}"
+        wait: yes
+        auto_ip: yes  # Automatically assigns a public IP address
+      loop: "{{ range(1, vm_count + 1) }}"
+      register: created_vms
+
+    # Step 2: Add created VMs to inventory dynamically
+    - name: Add created VMs to inventory group "CloudVMs"
+      add_host:
+        name: "{{ item.public_v4 }}"
+        groups: CloudVMs
+      with_items: "{{ created_vms.server }}"
+
+    # Step 3: Wait for SSH to be ready on the new VMs
+    - name: Wait for SSH to come up on all new VMs
+      wait_for_connection:
+        timeout: 300
+      delegate_to: "{{ item.public_v4 }}"
+      with_items: "{{ created_vms.server }}"
+      
+# Step 4: Now that VMs are created, configure them
+- name: Configure VMs (Install Software)
+  hosts: LocalMC
+  gather_facts: yes
+  become: yes
+  vars_files:
+  - variables.yaml
+  tasks:
+    - name: Install Apache on all VMs
+      apt:
+        name: apache2
+        state: present
+      when: ansible_os_family == "Debian"
+    
+    - name: Ensure Nginx is installed (for example)
+      yum:
+        name: nginx
+        state: present
+      when: ansible_os_family == "RedHat"

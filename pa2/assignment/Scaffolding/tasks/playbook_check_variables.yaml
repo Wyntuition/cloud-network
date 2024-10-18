@@ -1,0 +1,18 @@
+---
+# Check if required variables are defined
+- name: "Ensure required variables are defined"
+  vars:
+    required_vars:
+      - local_user
+  block:
+    - name: "Check if required variables are defined"
+      assert:
+        that:
+          - "{{ item }} is defined"
+        fail_msg: "The variable '{{ item }}' is not defined!"
+        success_msg: "The variable '{{ item }}' is defined."
+      loop: "{{ required_vars }}"
+  rescue:
+    - name: "Fail the play if required variables are missing"
+      fail:
+        msg: "One or more required variables are not defined. Exiting play."

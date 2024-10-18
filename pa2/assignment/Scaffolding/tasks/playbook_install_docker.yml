@@ -1,0 +1,31 @@
+---
+- name: "Install required dependencies for Docker"
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+
+- name: "Add Docker’s official GPG key"
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: "Add Docker repository"
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+    state: present
+
+- name: "Install Docker"
+  apt:
+    name: docker-ce
+    state: present
+
+- name: "Ensure Docker service is started"
+  systemd:
+    name: docker
+    state: started
+    enabled: true

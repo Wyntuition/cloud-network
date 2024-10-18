@@ -1,0 +1,12 @@
+---
+- name: "Gather facts about the VMs"
+  openstack.cloud.server_info:
+    cloud: chameleon
+    name: "{{ vm_name_prefix }}-{{ item }}"
+  loop: "{{ range(1, vm_count + 1) }}"
+  register: vm_facts
+
+- name: "Display private IP addresses of the VMs"
+  debug:
+    msg: "VM {{ item.server.name }} has private IP {{ item.server.private_v4 }}"
+  loop: "{{ vm_facts.openstack_servers }}"

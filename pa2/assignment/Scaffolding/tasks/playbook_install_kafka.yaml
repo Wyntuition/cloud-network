@@ -1,0 +1,12 @@
+---
+- name: "Copy Kafka tarball to the Cloud VM"
+  copy:
+    src: /tmp/kafka_2.13-3.2.0.tgz
+    dest: /opt/kafka_2.13-3.2.0.tgz
+    mode: '0755'
+
+- name: "Extract Kafka tarball"
+  unarchive:
+    src: /opt/kafka_2.13-3.2.0.tgz
+    dest: /opt/
+    remote_src: yes
