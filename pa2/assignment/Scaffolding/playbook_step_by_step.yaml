@@ -75,36 +75,54 @@
 #   - import_tasks: tasks/playbook_install_apt_packages.yaml
 #   - import_tasks: tasks/playbook_install_pip_packages.yaml
 
-# @@ My suggestion is that instead of each VM downloading the
-#    entire kafka distribution, we could download it locally
-#    on the controller machine.
-# 
-#    Subsequently, we then copy the *.tgz file to each VM where
-#    we untar and uncompress it @@
-- name: "Play 6a - Download kafka locally"
-  hosts: LocalMC  # specified in the Inventory file
-  remote_user:  "{{ local_user }}"      # note that the user is cc on Chameleon
-  gather_facts: no
-  become: false  # no need here.
-  collections:
-  - ansible-base
+# # @@ My suggestion is that instead of each VM downloading the
+# #    entire kafka distribution, we could download it locally
+# #    on the controller machine.
+# # 
+# #    Subsequently, we then copy the *.tgz file to each VM where
+# #    we untar and uncompress it @@
+# - name: "Play 6a - Download kafka locally"
+#   hosts: LocalMC  # specified in the Inventory file
+#   remote_user:  "{{ local_user }}"      # note that the user is cc on Chameleon
+#   gather_facts: no
+#   become: false  # no need here.
+#   collections:
+#   - ansible-base
 
-  tasks:    # the task to be performed
-  # @@ You have to write the following child playbook @@
-  - import_tasks: tasks/playbook_download_kafka.yaml
+#   tasks:    # the task to be performed
+#   # @@ You have to write the following child playbook @@
+#   - import_tasks: tasks/playbook_download_kafka.yaml
 
-- name: "Play 6b - Install Kafka on Cloud VMs"
+# - name: "Play 6b - Install Kafka on Cloud VMs"
+#   hosts: CloudVMs   # specified in the Inventory file
+#   remote_user: "{{ cloud_user }}" # since this play operates on the cloud
+#                                   # VMs, the user on those VMs is the
+#                                   # cloud_user variable
+#   hosts: CloudVMs          # specified in the Inventory file
+#   remote_user:  "{{ cloud_user }}"      # note that the user is cc on Chameleon
+#   gather_facts: no
+#   become: false  # we set it per task
+#   collections:
+#   - ansible-base
+
+#   tasks:    # the task to be performed
+#   # @@ You have to write the following child playbook @@
+#   - import_tasks: tasks/playbook_install_kafka.yaml
+
+
+#####################################################
+### Play 5: Install Docker on our Cloud VMs
+#
+#####################################################
+- name: "Play 5 - Install Docker on Cloud VMs"
   hosts: CloudVMs   # specified in the Inventory file
   remote_user: "{{ cloud_user }}" # since this play operates on the cloud
                                   # VMs, the user on those VMs is the
                                   # cloud_user variable
-  hosts: CloudVMs          # specified in the Inventory file
-  remote_user:  "{{ cloud_user }}"      # note that the user is cc on Chameleon
-  gather_facts: no
-  become: false  # we set it per task
+  gather_facts: yes   # we will need to get variety of facts like arch, OS release
+  become: true  # we set it here instead of doing per task
   collections:
   - ansible-base
 
   tasks:    # the task to be performed
-  # @@ You have to write the following child playbook @@
-  - import_tasks: tasks/playbook_install_kafka.yaml
+  - import_tasks: tasks/playbook_install_docker.yml
