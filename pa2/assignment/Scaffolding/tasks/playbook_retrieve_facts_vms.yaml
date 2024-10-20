@@ -1,12 +1,41 @@
+# ---
+# - name: "Gather facts about the VMs"
+#   openstack.cloud.server_info:
+#     cloud: "{{ cloud }}"
+#     name: "{{ vm_name_prefix }}-{{ item }}"
+#   loop: "{{ range(1, vm_count + 1) }}"
+#   register: vm_facts
+
+# - name: "Display private IP addresses of the VMs"
+#   debug:
+#     msg: "VM {{ item.servers[0].name }} has private IP {{ item.servers[0].addresses['CH-822922-net'][0].addr }}"
+#   loop: "{{ vm_facts.results }}"
 ---
-- name: "Gather facts about the VMs"
+- name: "Retrieve private IP addresses of the VMs"
   openstack.cloud.server_info:
     cloud: "{{ cloud }}"
     name: "{{ vm_name_prefix }}-{{ item }}"
   loop: "{{ range(1, vm_count + 1) }}"
   register: vm_facts
 
-- name: "Display private IP addresses of the VMs"
+- name: "Debug vm_facts results"
   debug:
-    msg: "VM {{ item.servers[0].name }} has private IP {{ item.servers[0].addresses['CH-822922-net'][0].addr }}"
+    var: vm_facts.results
+
+- name: "Debug each VM's server info"
+  debug:
+    msg: "{{ item }}"
   loop: "{{ vm_facts.results }}"
+
+- name: "Extract private IP addresses if servers exist and are not empty"
+  set_fact:
+    private_ips: "{{ vm_facts.results
+                    | selectattr('servers', 'defined')
+                    | selectattr('servers', 'length', '>', 0)
+                    | map(attribute='servers[0].addresses.CH-822922-net[0].addr')
+                    | list }}"
+  when: vm_facts.results is defined
+
+- name: "Display extracted private IP addresses"
+  debug:
+    var: private_ips

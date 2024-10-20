@@ -8,6 +8,7 @@
     network: "{{ vm_network }}"
     key_name: "{{ vm_keypair }}"
     security_groups:
+      - "default"
       - "ENABLE_HTTP_HTTPS"
       - "ENABLE_SSH"
       - "ENABLE_ICMP"

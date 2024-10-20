@@ -12,7 +12,7 @@
   gather_facts: no
   collections:    # collections is like import the necessary Ansible
                   # galaxy packages needed for the play to execute
-  - ansible-base
+  - ansible-builtin
 
   tasks:
   # @@ You have to write the following child playbook @@
@@ -29,7 +29,7 @@
   gather_facts: no 
   become: false    # No need for sudo as we are not installing anything
   collections:
-  - ansible-base
+  - ansible-builtin
   - openstack.cloud.collection
   
   tasks:    # the task to be performed
@@ -53,7 +53,7 @@
   gather_facts: no
   become: false
   collections:
-  - ansible-base
+  - ansible-builtin
   - openstack.cloud.collection
 
   tasks:    # the task to be performed
@@ -68,7 +68,7 @@
 #   become: true  # by setting this, we perform operations with sudo privilege
 #   gather_facts: no
 #   collections:
-#   - ansible-base
+#   - ansible-bultin
 
 #   tasks:    # the task to be performed
 #   # @@ You have to write the following child playbooks @@
