@@ -20,5 +20,5 @@
     path: "{{ current_dir.stdout }}/inventory.ini"
     section: CloudVMs
     option: "{{ item.servers[0].name }}"
-    value: "{{ item.servers[0].addresses['CH-822922-net'][0].addr }}"
+    value: "ansible_host={{ item.servers[0].addresses['CH-822922-net'][0].addr }}"
   loop: "{{ vm_facts.results }}"
