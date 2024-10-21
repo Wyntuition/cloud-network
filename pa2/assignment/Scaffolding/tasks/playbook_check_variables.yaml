@@ -1,10 +1,20 @@
 ---
 # Check if required variables are defined
 - name: "Ensure required variables are defined"
+  hosts: localhost
   vars:
     required_vars:
       - local_user
-  block:
+      - cloud_user
+      - vm_name_prefix
+      - vm_flavor
+      - vm_image
+      - vm_network
+      - vm_keypair
+      - vm_count
+      - vm_creation_timeout
+      - cloud
+  tasks:
     - name: "Check if required variables are defined"
       assert:
         that:

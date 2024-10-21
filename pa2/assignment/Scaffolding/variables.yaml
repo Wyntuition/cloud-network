@@ -7,44 +7,25 @@
 #    This yaml file declares the different variables. It uses
 #    a Python dictionary syntax
 #
-
-# I have already defined these two variables, which are used
-# in the master playbook.
-# @@ make sure to add the local user's username @@
 local_user: wyn
 
 cloud_user: cc  # user on chameleon VMs is cc
-
-# @@ You have to add additional variables here that you need
-#    in the different children playbooks. This could be things
-#    like VM properties such as VM name prefix, the flavor like
-#    m1.medium, project number and all the things you need to
-#    create the VM.
-# @@
-
-# variables.yaml
 
 # Prefix to use for naming the VMs
 vm_name_prefix: "team5a"
 
 # Flavor of the VM (VM size)
 vm_flavor: "m1.medium"
-
 # Image ID or name to use for the VM
 vm_image: "CC-Ubuntu22.04"
-
 # Network to attach the VMs to
 vm_network: "CH-822922-net"
-
 # SSH keypair to use for accessing the VMs
 vm_keypair: "team5kp"
-
 # Number of VMs to create
 vm_count: 4
-
 # Timeout in seconds for the VM creation process
 vm_creation_timeout: 600
-
 cloud: CH-822922
 
 ...
