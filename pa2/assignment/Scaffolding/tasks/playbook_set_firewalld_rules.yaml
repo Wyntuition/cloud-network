@@ -1,21 +1,19 @@
 ---
-- name: "Ensure firewalld is installed"
-  yum:
-    name: firewalld
+- name: "Ensure UFW (Uncomplicated Firewall) is installed"
+  apt:
+    name: ufw
     state: present
+    update_cache: yes
 
-- name: "Start firewalld service"
-  service:
-    name: firewalld
-    state: started
-    enabled: yes
-
-- name: "Allow Kafka port in firewalld"
-  firewalld:
-    port: 9092/tcp
-    permanent: true
+- name: "Ensure UFW is started"
+  ufw:
     state: enabled
+    policy: allow
 
-- name: "Reload firewalld"
-  firewalld:
-    state: reloaded
+- name: "Allow Kafka port in UFW"
+  ufw:
+    rule: allow
+    port: 9092/tcp
+
+- name: "Reload UFW to apply changes"
+  command: ufw reload

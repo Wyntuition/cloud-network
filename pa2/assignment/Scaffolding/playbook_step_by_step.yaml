@@ -110,19 +110,37 @@
 #   - import_tasks: tasks/playbook_install_kafka.yaml
 
 
-#####################################################
-### Play 5: Install Docker on our Cloud VMs
-#
-#####################################################
-- name: "Play 5 - Install Docker on Cloud VMs"
+# #####################################################
+# ### Play 5: Install Docker on our Cloud VMs
+# #
+# #####################################################
+# - name: "Play 5 - Install Docker on Cloud VMs"
+#   hosts: CloudVMs   # specified in the Inventory file
+#   remote_user: "{{ cloud_user }}" # since this play operates on the cloud
+#                                   # VMs, the user on those VMs is the
+#                                   # cloud_user variable
+#   gather_facts: yes   # we will need to get variety of facts like arch, OS release
+#   become: true  # we set it here instead of doing per task
+#   collections:
+#   - ansible-base
+
+#   tasks:    # the task to be performed
+#   - import_tasks: tasks/playbook_install_docker.yml
+
+
+- name: "Play 7 - Handle Firewalld policies"
   hosts: CloudVMs   # specified in the Inventory file
   remote_user: "{{ cloud_user }}" # since this play operates on the cloud
                                   # VMs, the user on those VMs is the
                                   # cloud_user variable
-  gather_facts: yes   # we will need to get variety of facts like arch, OS release
-  become: true  # we set it here instead of doing per task
+  become: true  # we set it here instead of doing per task unless
+                # there is a need to use non-sudo for any subtask
+  gather_facts: false
   collections:
   - ansible-base
+  - community.general
 
   tasks:    # the task to be performed
-  - import_tasks: tasks/playbook_install_docker.yml
+  - import_tasks: tasks/playbook_set_firewalld_rules.yaml
+
+...
