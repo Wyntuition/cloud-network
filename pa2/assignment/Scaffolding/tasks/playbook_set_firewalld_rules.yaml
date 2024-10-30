@@ -13,7 +13,8 @@
 - name: "Allow Kafka port in UFW"
   ufw:
     rule: allow
-    port: 9092/tcp
+    port: 9092
+    proto: tcp
 
 - name: "Reload UFW to apply changes"
   command: ufw reload
