@@ -154,6 +154,6 @@
   - ansible-base
   - community.general
   tasks:    # the task to be performed
-  - import_tasks: tasks/playbook_kubernetes_libraries.yaml
+  - import_tasks: tasks/playbook_kubernetes_prereq.yaml
 
 ...
