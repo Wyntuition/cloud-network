@@ -1,0 +1,83 @@
+TASK [Install libraries Kubernetes needs] ****************************************************
+ok: [team5a-1]
+ok: [team5a-4]
+ok: [team5a-2]
+ok: [team5a-3]
+
+TASK [Download and add Kubernetes apt repository GPG key] ************************************
+ok: [team5a-3]
+ok: [team5a-2]
+ok: [team5a-4]
+ok: [team5a-1]
+
+TASK [Add Kubernetes apt repository] *********************************************************
+ok: [team5a-3]
+ok: [team5a-2]
+ok: [team5a-4]
+changed: [team5a-1]
+
+TASK [Update apt cache] **********************************************************************
+changed: [team5a-2]
+changed: [team5a-3]
+changed: [team5a-1]
+changed: [team5a-4]
+
+TASK [Install Kubernetes packages] ***********************************************************
+ok: [team5a-3]
+ok: [team5a-2]
+ok: [team5a-4]
+ok: [team5a-1]
+
+TASK [Hold Kubernetes packages at current version] *******************************************
+changed: [team5a-3]
+changed: [team5a-2]
+changed: [team5a-1]
+changed: [team5a-4]
+
+TASK [Temporarily Disable swap] **************************************************************
+changed: [team5a-2]
+changed: [team5a-3]
+changed: [team5a-1]
+changed: [team5a-4]
+
+TASK [Ensure swap is disabled on reboot] *****************************************************
+ok: [team5a-3]
+ok: [team5a-2]
+ok: [team5a-4]
+ok: [team5a-1]
+
+TASK [Stop and disable firewalld] ************************************************************
+changed: [team5a-3]
+changed: [team5a-4]
+changed: [team5a-1]
+changed: [team5a-2]
+
+TASK [Disable ufw] ***************************************************************************
+ok: [team5a-3]
+ok: [team5a-2]
+ok: [team5a-4]
+changed: [team5a-1]
+
+TASK [Enable and start kubelet service] ******************************************************
+changed: [team5a-3]
+changed: [team5a-2]
+ok: [team5a-1]
+changed: [team5a-4]
+
+TASK [Remove Kubernetes apt repository] ******************************************************
+changed: [team5a-3]
+changed: [team5a-1]
+changed: [team5a-4]
+changed: [team5a-2]
+
+TASK [Update apt package index after removing Kubernetes repo] *******************************
+changed: [team5a-3]
+changed: [team5a-1]
+changed: [team5a-2]
+changed: [team5a-4]
+
+PLAY RECAP ***********************************************************************************
+team5a-1                   : ok=13   changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+team5a-2                   : ok=13   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+team5a-3                   : ok=13   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+team5a-4                   : ok=13   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
