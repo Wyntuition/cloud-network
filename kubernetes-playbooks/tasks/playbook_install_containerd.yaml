@@ -1,0 +1,44 @@
+---
+- name: Install containerd
+  apt:
+    name: 
+      - containerd
+    state: present
+    update_cache: yes
+# todo this necessary too?
+- name: Ensure containerd config directory exists.
+  file:
+    path: /etc/containerd
+    state: directory
+  register: containerd_dir
+
+
+
+# # Configure - remove default config file and create detailed one
+# - name: "Create containerd configuration file"
+#   shell: |
+#     mkdir -p /etc/containerd
+#     containerd config default > /etc/containerd/config.toml
+
+- name: Create containerd configuration file
+  ansible.builtin.command: "containerd config default"
+  register: containerd_default_config
+
+- name: Write containerd configuration file with SystemdCgroup=true
+  ansible.builtin.copy:
+    dest: /etc/containerd/config.toml
+    content: |
+          # {{ containerd_default_config.stdout | regex_replace('SystemdCgroup = false', 'SystemdCgroup = true') }}
+          {{ containerd_default_config.stdout |
+             regex_replace('SystemdCgroup = false', 'SystemdCgroup = true') |
+             regex_replace('sandbox_image = "registry.k8s.io/pause:3.8"', 'sandbox_image = "registry.k8s.io/pause:3.10"') |
+             regex_replace('config_path = ""', 'config_path = "/etc/containerd/certs.d/localhost:5000"') }}
+    notify: restart containerd
+
+  # Ensures that containerd restarts with the updated configuration and is enabled on boot.
+  handlers:
+    - name: restart containerd
+      ansible.builtin.systemd:
+        name: containerd
+        state: restarted
+        enabled: true

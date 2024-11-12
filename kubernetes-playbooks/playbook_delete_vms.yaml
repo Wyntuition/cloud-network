@@ -1,0 +1,15 @@
+---
+- name: "Destroy VMs on Chameleon Cloud"
+  hosts: localhost
+  tasks:
+    - name: "Delete VMs"
+      openstack.cloud.server:
+        cloud: "CH-822922"
+        name: "{{ vm_name_prefix }}-{{ item }}"
+        state: absent  # This will delete the specified VM
+      loop: "{{ range(1, vm_count + 1) }}"
+      register: deleted_vms
+
+    - name: "Display deletion status"
+      debug:
+        var: deleted_vms

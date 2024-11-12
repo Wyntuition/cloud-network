@@ -1,0 +1,93 @@
+---
+- name: "Install libraries Kubernetes needs"
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - gpg
+    state: present
+    update_cache: yes  # Update the cache before installing these packages
+
+# - name: Add Docker GPG apt key
+#   apt_key:
+#     url: https://download.docker.com/linux/ubuntu/gpg
+#     state: present
+#     keyring: /etc/apt/keyrings/docker.gpg
+          
+- name: Download and add Kubernetes apt repository GPG key
+  ansible.builtin.shell: "curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg"
+  args:
+    creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+- name: Add Kubernetes apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /"
+    filename: "kubernetes"
+    state: present
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install Kubernetes packages
+  apt:
+    name: 
+      - kubelet
+      - kubeadm
+      - kubectl
+    state: present
+    update_cache: yes
+
+- name: Hold Kubernetes packages at current version
+  ansible.builtin.command: "apt-mark hold kubelet kubeadm kubectl"
+
+- name: "Temporarily Disable swap"
+  command: swapoff -a
+  
+- name: "Ensure swap is disabled on reboot"
+  replace:
+        path: /etc/fstab
+        regexp: '^\s*([^#\s]+\s+)+swap\s+'
+        replace: '#\1swap'
+
+# TODO - turn firewall back on with only these and app ports open
+# - name: "Allow Kubernetes ports in UFW"
+#   ufw:
+#         rule: allow
+#         port: "{{ item }}"
+#         proto: tcp
+#   loop:
+#         - 6443    # Kubernetes API server
+#         - 2379    # etcd server client API
+#         - 2380    # etcd server client API
+#         - 10250   # Kubelet API
+#         - 10251   # kube-scheduler
+#         - 10252   # kube-controller-manager
+#         - 10255   # Read-only Kubelet API
+- name: "Stop and disable firewalld"
+  systemd:
+        name: firewalld
+        state: stopped
+        enabled: no
+
+- name: "Disable ufw"
+  ufw:
+        state: disabled
+
+- name: "Enable and start kubelet service"
+
+  systemd:
+    name: kubelet
+    enabled: yes
+    state: started
+
+- name: "Remove Kubernetes apt repository"
+  file:
+    path: /etc/apt/sources.list.d/kubernetes.list
+    state: absent
+
+- name: "Update apt package index after removing Kubernetes repo"
+  apt:
+    update_cache: yes

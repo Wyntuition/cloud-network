@@ -1,0 +1,1797 @@
+
+PLAY [Check if required variables that drive the deployment are defined] *******
+
+TASK [Check if required variables are defined] *********************************
+ok: [127.0.0.1] => (item=local_user) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "local_user",
+    "msg": "The variable 'local_user' is defined."
+}
+ok: [127.0.0.1] => (item=cloud_user) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "cloud_user",
+    "msg": "The variable 'cloud_user' is defined."
+}
+ok: [127.0.0.1] => (item=vm_name_prefix) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "vm_name_prefix",
+    "msg": "The variable 'vm_name_prefix' is defined."
+}
+ok: [127.0.0.1] => (item=vm_flavor) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "vm_flavor",
+    "msg": "The variable 'vm_flavor' is defined."
+}
+ok: [127.0.0.1] => (item=vm_image) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "vm_image",
+    "msg": "The variable 'vm_image' is defined."
+}
+ok: [127.0.0.1] => (item=vm_network) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "vm_network",
+    "msg": "The variable 'vm_network' is defined."
+}
+ok: [127.0.0.1] => (item=vm_keypair) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "vm_keypair",
+    "msg": "The variable 'vm_keypair' is defined."
+}
+ok: [127.0.0.1] => (item=vm_count) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "vm_count",
+    "msg": "The variable 'vm_count' is defined."
+}
+ok: [127.0.0.1] => (item=vm_creation_timeout) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "vm_creation_timeout",
+    "msg": "The variable 'vm_creation_timeout' is defined."
+}
+ok: [127.0.0.1] => (item=cloud) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "cloud",
+    "msg": "The variable 'cloud' is defined."
+}
+
+PLAY [Play 2: Create VMs on Chameleon] *****************************************
+
+TASK [Create VMs on Chameleon Cloud] *******************************************
+ok: [127.0.0.1] => (item=1)
+ok: [127.0.0.1] => (item=2)
+ok: [127.0.0.1] => (item=3)
+ok: [127.0.0.1] => (item=4)
+
+TASK [Display VM details] ******************************************************
+ok: [127.0.0.1] => {
+    "created_vms": {
+        "changed": false,
+        "msg": "All items completed",
+        "results": [
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "api_timeout": null,
+                        "auth": null,
+                        "auth_type": null,
+                        "auto_ip": true,
+                        "availability_zone": null,
+                        "boot_from_volume": false,
+                        "boot_volume": null,
+                        "ca_cert": null,
+                        "client_cert": null,
+                        "client_key": null,
+                        "config_drive": false,
+                        "delete_ips": false,
+                        "description": null,
+                        "flavor": "m1.medium",
+                        "flavor_include": null,
+                        "flavor_ram": null,
+                        "floating_ip_pools": null,
+                        "floating_ips": null,
+                        "image": "CC-Ubuntu22.04",
+                        "image_exclude": "(deprecated)",
+                        "interface": "public",
+                        "key_name": "team5kp",
+                        "metadata": null,
+                        "name": "team5a-1",
+                        "network": "CH-822922-net",
+                        "nics": [],
+                        "region_name": null,
+                        "reuse_ips": true,
+                        "scheduler_hints": null,
+                        "sdk_log_level": "INFO",
+                        "sdk_log_path": null,
+                        "security_groups": [
+                            "default",
+                            "ENABLE_HTTP_HTTPS",
+                            "ENABLE_SSH",
+                            "ENABLE_ICMP",
+                            "ENABLE_ZMQ_APPS",
+                            "ENABLE_ZOOKEEPER"
+                        ],
+                        "state": "present",
+                        "terminate_volume": false,
+                        "timeout": 600,
+                        "userdata": null,
+                        "validate_certs": null,
+                        "volume_size": null,
+                        "volumes": [],
+                        "wait": true
+                    }
+                },
+                "item": 1,
+                "server": {
+                    "access_ipv4": "",
+                    "access_ipv6": "",
+                    "addresses": {
+                        "CH-822922-net": [
+                            {
+                                "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:23:46:9b",
+                                "OS-EXT-IPS:type": "fixed",
+                                "addr": "192.168.5.15",
+                                "version": 4
+                            },
+                            {
+                                "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:23:46:9b",
+                                "OS-EXT-IPS:type": "floating",
+                                "addr": "129.114.27.158",
+                                "version": 4
+                            }
+                        ]
+                    },
+                    "admin_password": null,
+                    "attached_volumes": [],
+                    "availability_zone": "nova",
+                    "block_device_mapping": null,
+                    "compute_host": "c08-18",
+                    "config_drive": "",
+                    "created_at": "2024-10-18T14:59:20Z",
+                    "description": null,
+                    "disk_config": "MANUAL",
+                    "fault": null,
+                    "flavor": {
+                        "description": null,
+                        "disk": 40,
+                        "ephemeral": 0,
+                        "extra_specs": {},
+                        "id": "m1.medium",
+                        "is_disabled": null,
+                        "is_public": true,
+                        "location": null,
+                        "name": "m1.medium",
+                        "original_name": "m1.medium",
+                        "ram": 4096,
+                        "rxtx_factor": null,
+                        "swap": 0,
+                        "vcpus": 2
+                    },
+                    "flavor_id": null,
+                    "has_config_drive": "",
+                    "host": null,
+                    "host_id": "cf1f17dedec9251024260d229c6d47d5e39b1ddb13e21aa864f35da9",
+                    "host_status": null,
+                    "hostname": "team5a-1",
+                    "hypervisor_hostname": "c08-18",
+                    "id": "3ab41a27-57f8-4842-96ba-2da2f4ce8006",
+                    "image": {
+                        "architecture": null,
+                        "checksum": null,
+                        "container_format": null,
+                        "created_at": null,
+                        "direct_url": null,
+                        "disk_format": null,
+                        "file": null,
+                        "has_auto_disk_config": null,
+                        "hash_algo": null,
+                        "hash_value": null,
+                        "hw_cpu_cores": null,
+                        "hw_cpu_policy": null,
+                        "hw_cpu_sockets": null,
+                        "hw_cpu_thread_policy": null,
+                        "hw_cpu_threads": null,
+                        "hw_disk_bus": null,
+                        "hw_machine_type": null,
+                        "hw_qemu_guest_agent": null,
+                        "hw_rng_model": null,
+                        "hw_scsi_model": null,
+                        "hw_serial_port_count": null,
+                        "hw_video_model": null,
+                        "hw_video_ram": null,
+                        "hw_vif_model": null,
+                        "hw_watchdog_action": null,
+                        "hypervisor_type": null,
+                        "id": "cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5",
+                        "instance_type_rxtx_factor": null,
+                        "instance_uuid": null,
+                        "is_hidden": null,
+                        "is_hw_boot_menu_enabled": null,
+                        "is_hw_vif_multiqueue_enabled": null,
+                        "is_protected": null,
+                        "kernel_id": null,
+                        "location": null,
+                        "locations": null,
+                        "metadata": null,
+                        "min_disk": null,
+                        "min_ram": null,
+                        "name": null,
+                        "needs_config_drive": null,
+                        "needs_secure_boot": null,
+                        "os_admin_user": null,
+                        "os_command_line": null,
+                        "os_distro": null,
+                        "os_require_quiesce": null,
+                        "os_shutdown_timeout": null,
+                        "os_type": null,
+                        "os_version": null,
+                        "owner": null,
+                        "owner_id": null,
+                        "properties": {
+                            "links": [
+                                {
+                                    "href": "https://kvm.tacc.chameleoncloud.org:8774/images/cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5",
+                                    "rel": "bookmark"
+                                }
+                            ]
+                        },
+                        "ramdisk_id": null,
+                        "schema": null,
+                        "size": null,
+                        "status": null,
+                        "store": null,
+                        "tags": [],
+                        "updated_at": null,
+                        "url": null,
+                        "virtual_size": null,
+                        "visibility": null,
+                        "vm_mode": null,
+                        "vmware_adaptertype": null,
+                        "vmware_ostype": null
+                    },
+                    "image_id": null,
+                    "instance_name": "instance-00020219",
+                    "is_locked": false,
+                    "kernel_id": "",
+                    "key_name": "team5kp",
+                    "launch_index": 0,
+                    "launched_at": "2024-10-18T14:59:31.000000",
+                    "links": [
+                        {
+                            "href": "https://kvm.tacc.chameleoncloud.org:8774/v2.1/servers/3ab41a27-57f8-4842-96ba-2da2f4ce8006",
+                            "rel": "self"
+                        },
+                        {
+                            "href": "https://kvm.tacc.chameleoncloud.org:8774/servers/3ab41a27-57f8-4842-96ba-2da2f4ce8006",
+                            "rel": "bookmark"
+                        }
+                    ],
+                    "locked_reason": null,
+                    "max_count": null,
+                    "metadata": {},
+                    "min_count": null,
+                    "name": "team5a-1",
+                    "networks": null,
+                    "personality": null,
+                    "pinned_availability_zone": null,
+                    "power_state": 1,
+                    "progress": 0,
+                    "project_id": "9c3848cc69044cdfb5a8c7b5e273b276",
+                    "ramdisk_id": "",
+                    "reservation_id": "r-ntac6had",
+                    "root_device_name": "/dev/vda",
+                    "scheduler_hints": null,
+                    "security_groups": [
+                        {
+                            "description": "For http and https traffic",
+                            "id": "025095ce-02d4-4595-979d-f90d20300497",
+                            "name": "ENABLE_HTTP_HTTPS",
+                            "rules": [
+                                {
+                                    "from_port": 443,
+                                    "group": {},
+                                    "id": "12a71437-79a2-4ff9-b9a7-c9bb80053878",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "025095ce-02d4-4595-979d-f90d20300497",
+                                    "to_port": 443
+                                },
+                                {
+                                    "from_port": 80,
+                                    "group": {},
+                                    "id": "19a08c98-5d71-41d8-b8fb-945f928b3bd2",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "025095ce-02d4-4595-979d-f90d20300497",
+                                    "to_port": 80
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "To allow ping traffic",
+                            "id": "e2241d49-f211-4950-a550-fd28d2b4bc35",
+                            "name": "ENABLE_ICMP",
+                            "rules": [
+                                {
+                                    "from_port": -1,
+                                    "group": {},
+                                    "id": "210239de-5f47-432e-97e4-775f014c3172",
+                                    "ip_protocol": "icmp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "e2241d49-f211-4950-a550-fd28d2b4bc35",
+                                    "to_port": -1
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "To allow remote connection to the VM",
+                            "id": "d51b4231-1896-43b8-accb-f5aa26f2fe9a",
+                            "name": "ENABLE_SSH",
+                            "rules": [
+                                {
+                                    "from_port": 22,
+                                    "group": {},
+                                    "id": "bde62230-c62b-44a7-ab4c-59979c3a4036",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "d51b4231-1896-43b8-accb-f5aa26f2fe9a",
+                                    "to_port": 22
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "Ports used by zeromq apps",
+                            "id": "b2b289a5-00e3-4dfa-b519-1d1a3dc66848",
+                            "name": "ENABLE_ZMQ_APPS",
+                            "rules": [
+                                {
+                                    "from_port": 5555,
+                                    "group": {},
+                                    "id": "f7dd3dfe-cddd-46ac-8348-0cbaea334f94",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "b2b289a5-00e3-4dfa-b519-1d1a3dc66848",
+                                    "to_port": 7777
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "Allow zookeeper server",
+                            "id": "cb537f73-02f3-45f5-bd05-408d437d5a81",
+                            "name": "ENABLE_ZOOKEEPER",
+                            "rules": [
+                                {
+                                    "from_port": 2181,
+                                    "group": {},
+                                    "id": "60f6c9c5-0219-46b6-b8ab-25e0e862f9b1",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "cb537f73-02f3-45f5-bd05-408d437d5a81",
+                                    "to_port": 2181
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "Default security group",
+                            "id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                            "name": "default",
+                            "rules": [
+                                {
+                                    "from_port": 22,
+                                    "group": {},
+                                    "id": "053f704e-13c1-4212-9ab9-c9322a3482d5",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": 22
+                                },
+                                {
+                                    "from_port": null,
+                                    "group": {
+                                        "name": "default",
+                                        "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                                    },
+                                    "id": "14162806-2966-4da0-8350-9f368e7ae04e",
+                                    "ip_protocol": null,
+                                    "ip_range": {},
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": null
+                                },
+                                {
+                                    "from_port": null,
+                                    "group": {
+                                        "name": "default",
+                                        "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                                    },
+                                    "id": "2d7559f4-e662-465b-adfc-016ad72afd3a",
+                                    "ip_protocol": null,
+                                    "ip_range": {},
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": null
+                                },
+                                {
+                                    "from_port": -1,
+                                    "group": {},
+                                    "id": "6633e290-2a7a-4796-acce-9f646d43af8b",
+                                    "ip_protocol": "icmp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": -1
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        }
+                    ],
+                    "server_groups": [],
+                    "status": "ACTIVE",
+                    "tags": [],
+                    "task_state": null,
+                    "terminated_at": null,
+                    "trusted_image_certificates": null,
+                    "updated_at": "2024-10-18T14:59:31Z",
+                    "user_data": null,
+                    "user_id": "d2a2bce3dff76fb82d105fa3a8fbe03928d109d4224a97df4252f3e7055b3edb",
+                    "vm_state": "active",
+                    "volumes": []
+                }
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "api_timeout": null,
+                        "auth": null,
+                        "auth_type": null,
+                        "auto_ip": true,
+                        "availability_zone": null,
+                        "boot_from_volume": false,
+                        "boot_volume": null,
+                        "ca_cert": null,
+                        "client_cert": null,
+                        "client_key": null,
+                        "config_drive": false,
+                        "delete_ips": false,
+                        "description": null,
+                        "flavor": "m1.medium",
+                        "flavor_include": null,
+                        "flavor_ram": null,
+                        "floating_ip_pools": null,
+                        "floating_ips": null,
+                        "image": "CC-Ubuntu22.04",
+                        "image_exclude": "(deprecated)",
+                        "interface": "public",
+                        "key_name": "team5kp",
+                        "metadata": null,
+                        "name": "team5a-2",
+                        "network": "CH-822922-net",
+                        "nics": [],
+                        "region_name": null,
+                        "reuse_ips": true,
+                        "scheduler_hints": null,
+                        "sdk_log_level": "INFO",
+                        "sdk_log_path": null,
+                        "security_groups": [
+                            "default",
+                            "ENABLE_HTTP_HTTPS",
+                            "ENABLE_SSH",
+                            "ENABLE_ICMP",
+                            "ENABLE_ZMQ_APPS",
+                            "ENABLE_ZOOKEEPER"
+                        ],
+                        "state": "present",
+                        "terminate_volume": false,
+                        "timeout": 600,
+                        "userdata": null,
+                        "validate_certs": null,
+                        "volume_size": null,
+                        "volumes": [],
+                        "wait": true
+                    }
+                },
+                "item": 2,
+                "server": {
+                    "access_ipv4": "",
+                    "access_ipv6": "",
+                    "addresses": {
+                        "CH-822922-net": [
+                            {
+                                "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:59:a4:5a",
+                                "OS-EXT-IPS:type": "fixed",
+                                "addr": "192.168.5.169",
+                                "version": 4
+                            },
+                            {
+                                "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:59:a4:5a",
+                                "OS-EXT-IPS:type": "floating",
+                                "addr": "129.114.27.239",
+                                "version": 4
+                            }
+                        ]
+                    },
+                    "admin_password": null,
+                    "attached_volumes": [],
+                    "availability_zone": "nova",
+                    "block_device_mapping": null,
+                    "compute_host": "c08-18",
+                    "config_drive": "",
+                    "created_at": "2024-10-18T14:59:55Z",
+                    "description": null,
+                    "disk_config": "MANUAL",
+                    "fault": null,
+                    "flavor": {
+                        "description": null,
+                        "disk": 40,
+                        "ephemeral": 0,
+                        "extra_specs": {},
+                        "id": "m1.medium",
+                        "is_disabled": null,
+                        "is_public": true,
+                        "location": null,
+                        "name": "m1.medium",
+                        "original_name": "m1.medium",
+                        "ram": 4096,
+                        "rxtx_factor": null,
+                        "swap": 0,
+                        "vcpus": 2
+                    },
+                    "flavor_id": null,
+                    "has_config_drive": "",
+                    "host": null,
+                    "host_id": "cf1f17dedec9251024260d229c6d47d5e39b1ddb13e21aa864f35da9",
+                    "host_status": null,
+                    "hostname": "team5a-2",
+                    "hypervisor_hostname": "c08-18",
+                    "id": "21c47430-925c-45ad-ac3b-b373a6743b8c",
+                    "image": {
+                        "architecture": null,
+                        "checksum": null,
+                        "container_format": null,
+                        "created_at": null,
+                        "direct_url": null,
+                        "disk_format": null,
+                        "file": null,
+                        "has_auto_disk_config": null,
+                        "hash_algo": null,
+                        "hash_value": null,
+                        "hw_cpu_cores": null,
+                        "hw_cpu_policy": null,
+                        "hw_cpu_sockets": null,
+                        "hw_cpu_thread_policy": null,
+                        "hw_cpu_threads": null,
+                        "hw_disk_bus": null,
+                        "hw_machine_type": null,
+                        "hw_qemu_guest_agent": null,
+                        "hw_rng_model": null,
+                        "hw_scsi_model": null,
+                        "hw_serial_port_count": null,
+                        "hw_video_model": null,
+                        "hw_video_ram": null,
+                        "hw_vif_model": null,
+                        "hw_watchdog_action": null,
+                        "hypervisor_type": null,
+                        "id": "cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5",
+                        "instance_type_rxtx_factor": null,
+                        "instance_uuid": null,
+                        "is_hidden": null,
+                        "is_hw_boot_menu_enabled": null,
+                        "is_hw_vif_multiqueue_enabled": null,
+                        "is_protected": null,
+                        "kernel_id": null,
+                        "location": null,
+                        "locations": null,
+                        "metadata": null,
+                        "min_disk": null,
+                        "min_ram": null,
+                        "name": null,
+                        "needs_config_drive": null,
+                        "needs_secure_boot": null,
+                        "os_admin_user": null,
+                        "os_command_line": null,
+                        "os_distro": null,
+                        "os_require_quiesce": null,
+                        "os_shutdown_timeout": null,
+                        "os_type": null,
+                        "os_version": null,
+                        "owner": null,
+                        "owner_id": null,
+                        "properties": {
+                            "links": [
+                                {
+                                    "href": "https://kvm.tacc.chameleoncloud.org:8774/images/cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5",
+                                    "rel": "bookmark"
+                                }
+                            ]
+                        },
+                        "ramdisk_id": null,
+                        "schema": null,
+                        "size": null,
+                        "status": null,
+                        "store": null,
+                        "tags": [],
+                        "updated_at": null,
+                        "url": null,
+                        "virtual_size": null,
+                        "visibility": null,
+                        "vm_mode": null,
+                        "vmware_adaptertype": null,
+                        "vmware_ostype": null
+                    },
+                    "image_id": null,
+                    "instance_name": "instance-0002021a",
+                    "is_locked": false,
+                    "kernel_id": "",
+                    "key_name": "team5kp",
+                    "launch_index": 0,
+                    "launched_at": "2024-10-18T15:00:06.000000",
+                    "links": [
+                        {
+                            "href": "https://kvm.tacc.chameleoncloud.org:8774/v2.1/servers/21c47430-925c-45ad-ac3b-b373a6743b8c",
+                            "rel": "self"
+                        },
+                        {
+                            "href": "https://kvm.tacc.chameleoncloud.org:8774/servers/21c47430-925c-45ad-ac3b-b373a6743b8c",
+                            "rel": "bookmark"
+                        }
+                    ],
+                    "locked_reason": null,
+                    "max_count": null,
+                    "metadata": {},
+                    "min_count": null,
+                    "name": "team5a-2",
+                    "networks": null,
+                    "personality": null,
+                    "pinned_availability_zone": null,
+                    "power_state": 1,
+                    "progress": 0,
+                    "project_id": "9c3848cc69044cdfb5a8c7b5e273b276",
+                    "ramdisk_id": "",
+                    "reservation_id": "r-gc5c0hg2",
+                    "root_device_name": "/dev/vda",
+                    "scheduler_hints": null,
+                    "security_groups": [
+                        {
+                            "description": "For http and https traffic",
+                            "id": "025095ce-02d4-4595-979d-f90d20300497",
+                            "name": "ENABLE_HTTP_HTTPS",
+                            "rules": [
+                                {
+                                    "from_port": 443,
+                                    "group": {},
+                                    "id": "12a71437-79a2-4ff9-b9a7-c9bb80053878",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "025095ce-02d4-4595-979d-f90d20300497",
+                                    "to_port": 443
+                                },
+                                {
+                                    "from_port": 80,
+                                    "group": {},
+                                    "id": "19a08c98-5d71-41d8-b8fb-945f928b3bd2",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "025095ce-02d4-4595-979d-f90d20300497",
+                                    "to_port": 80
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "To allow ping traffic",
+                            "id": "e2241d49-f211-4950-a550-fd28d2b4bc35",
+                            "name": "ENABLE_ICMP",
+                            "rules": [
+                                {
+                                    "from_port": -1,
+                                    "group": {},
+                                    "id": "210239de-5f47-432e-97e4-775f014c3172",
+                                    "ip_protocol": "icmp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "e2241d49-f211-4950-a550-fd28d2b4bc35",
+                                    "to_port": -1
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "To allow remote connection to the VM",
+                            "id": "d51b4231-1896-43b8-accb-f5aa26f2fe9a",
+                            "name": "ENABLE_SSH",
+                            "rules": [
+                                {
+                                    "from_port": 22,
+                                    "group": {},
+                                    "id": "bde62230-c62b-44a7-ab4c-59979c3a4036",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "d51b4231-1896-43b8-accb-f5aa26f2fe9a",
+                                    "to_port": 22
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "Ports used by zeromq apps",
+                            "id": "b2b289a5-00e3-4dfa-b519-1d1a3dc66848",
+                            "name": "ENABLE_ZMQ_APPS",
+                            "rules": [
+                                {
+                                    "from_port": 5555,
+                                    "group": {},
+                                    "id": "f7dd3dfe-cddd-46ac-8348-0cbaea334f94",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "b2b289a5-00e3-4dfa-b519-1d1a3dc66848",
+                                    "to_port": 7777
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "Allow zookeeper server",
+                            "id": "cb537f73-02f3-45f5-bd05-408d437d5a81",
+                            "name": "ENABLE_ZOOKEEPER",
+                            "rules": [
+                                {
+                                    "from_port": 2181,
+                                    "group": {},
+                                    "id": "60f6c9c5-0219-46b6-b8ab-25e0e862f9b1",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "cb537f73-02f3-45f5-bd05-408d437d5a81",
+                                    "to_port": 2181
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "Default security group",
+                            "id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                            "name": "default",
+                            "rules": [
+                                {
+                                    "from_port": 22,
+                                    "group": {},
+                                    "id": "053f704e-13c1-4212-9ab9-c9322a3482d5",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": 22
+                                },
+                                {
+                                    "from_port": null,
+                                    "group": {
+                                        "name": "default",
+                                        "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                                    },
+                                    "id": "14162806-2966-4da0-8350-9f368e7ae04e",
+                                    "ip_protocol": null,
+                                    "ip_range": {},
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": null
+                                },
+                                {
+                                    "from_port": null,
+                                    "group": {
+                                        "name": "default",
+                                        "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                                    },
+                                    "id": "2d7559f4-e662-465b-adfc-016ad72afd3a",
+                                    "ip_protocol": null,
+                                    "ip_range": {},
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": null
+                                },
+                                {
+                                    "from_port": -1,
+                                    "group": {},
+                                    "id": "6633e290-2a7a-4796-acce-9f646d43af8b",
+                                    "ip_protocol": "icmp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": -1
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        }
+                    ],
+                    "server_groups": [],
+                    "status": "ACTIVE",
+                    "tags": [],
+                    "task_state": null,
+                    "terminated_at": null,
+                    "trusted_image_certificates": null,
+                    "updated_at": "2024-10-18T15:00:06Z",
+                    "user_data": null,
+                    "user_id": "d2a2bce3dff76fb82d105fa3a8fbe03928d109d4224a97df4252f3e7055b3edb",
+                    "vm_state": "active",
+                    "volumes": []
+                }
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "api_timeout": null,
+                        "auth": null,
+                        "auth_type": null,
+                        "auto_ip": true,
+                        "availability_zone": null,
+                        "boot_from_volume": false,
+                        "boot_volume": null,
+                        "ca_cert": null,
+                        "client_cert": null,
+                        "client_key": null,
+                        "config_drive": false,
+                        "delete_ips": false,
+                        "description": null,
+                        "flavor": "m1.medium",
+                        "flavor_include": null,
+                        "flavor_ram": null,
+                        "floating_ip_pools": null,
+                        "floating_ips": null,
+                        "image": "CC-Ubuntu22.04",
+                        "image_exclude": "(deprecated)",
+                        "interface": "public",
+                        "key_name": "team5kp",
+                        "metadata": null,
+                        "name": "team5a-3",
+                        "network": "CH-822922-net",
+                        "nics": [],
+                        "region_name": null,
+                        "reuse_ips": true,
+                        "scheduler_hints": null,
+                        "sdk_log_level": "INFO",
+                        "sdk_log_path": null,
+                        "security_groups": [
+                            "default",
+                            "ENABLE_HTTP_HTTPS",
+                            "ENABLE_SSH",
+                            "ENABLE_ICMP",
+                            "ENABLE_ZMQ_APPS",
+                            "ENABLE_ZOOKEEPER"
+                        ],
+                        "state": "present",
+                        "terminate_volume": false,
+                        "timeout": 600,
+                        "userdata": null,
+                        "validate_certs": null,
+                        "volume_size": null,
+                        "volumes": [],
+                        "wait": true
+                    }
+                },
+                "item": 3,
+                "server": {
+                    "access_ipv4": "",
+                    "access_ipv6": "",
+                    "addresses": {
+                        "CH-822922-net": [
+                            {
+                                "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:56:f0:bb",
+                                "OS-EXT-IPS:type": "fixed",
+                                "addr": "192.168.5.87",
+                                "version": 4
+                            },
+                            {
+                                "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:56:f0:bb",
+                                "OS-EXT-IPS:type": "floating",
+                                "addr": "129.114.25.190",
+                                "version": 4
+                            }
+                        ]
+                    },
+                    "admin_password": null,
+                    "attached_volumes": [],
+                    "availability_zone": "nova",
+                    "block_device_mapping": null,
+                    "compute_host": "c09-28",
+                    "config_drive": "",
+                    "created_at": "2024-10-18T15:00:31Z",
+                    "description": null,
+                    "disk_config": "MANUAL",
+                    "fault": null,
+                    "flavor": {
+                        "description": null,
+                        "disk": 40,
+                        "ephemeral": 0,
+                        "extra_specs": {},
+                        "id": "m1.medium",
+                        "is_disabled": null,
+                        "is_public": true,
+                        "location": null,
+                        "name": "m1.medium",
+                        "original_name": "m1.medium",
+                        "ram": 4096,
+                        "rxtx_factor": null,
+                        "swap": 0,
+                        "vcpus": 2
+                    },
+                    "flavor_id": null,
+                    "has_config_drive": "",
+                    "host": null,
+                    "host_id": "877e302a72d7ec3d6da6f6ff42e5ff26137bd1d7bf28e8cebbd26a91",
+                    "host_status": null,
+                    "hostname": "team5a-3",
+                    "hypervisor_hostname": "c09-28",
+                    "id": "a27b0f6a-3770-4a09-8d9c-15879e259bfb",
+                    "image": {
+                        "architecture": null,
+                        "checksum": null,
+                        "container_format": null,
+                        "created_at": null,
+                        "direct_url": null,
+                        "disk_format": null,
+                        "file": null,
+                        "has_auto_disk_config": null,
+                        "hash_algo": null,
+                        "hash_value": null,
+                        "hw_cpu_cores": null,
+                        "hw_cpu_policy": null,
+                        "hw_cpu_sockets": null,
+                        "hw_cpu_thread_policy": null,
+                        "hw_cpu_threads": null,
+                        "hw_disk_bus": null,
+                        "hw_machine_type": null,
+                        "hw_qemu_guest_agent": null,
+                        "hw_rng_model": null,
+                        "hw_scsi_model": null,
+                        "hw_serial_port_count": null,
+                        "hw_video_model": null,
+                        "hw_video_ram": null,
+                        "hw_vif_model": null,
+                        "hw_watchdog_action": null,
+                        "hypervisor_type": null,
+                        "id": "cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5",
+                        "instance_type_rxtx_factor": null,
+                        "instance_uuid": null,
+                        "is_hidden": null,
+                        "is_hw_boot_menu_enabled": null,
+                        "is_hw_vif_multiqueue_enabled": null,
+                        "is_protected": null,
+                        "kernel_id": null,
+                        "location": null,
+                        "locations": null,
+                        "metadata": null,
+                        "min_disk": null,
+                        "min_ram": null,
+                        "name": null,
+                        "needs_config_drive": null,
+                        "needs_secure_boot": null,
+                        "os_admin_user": null,
+                        "os_command_line": null,
+                        "os_distro": null,
+                        "os_require_quiesce": null,
+                        "os_shutdown_timeout": null,
+                        "os_type": null,
+                        "os_version": null,
+                        "owner": null,
+                        "owner_id": null,
+                        "properties": {
+                            "links": [
+                                {
+                                    "href": "https://kvm.tacc.chameleoncloud.org:8774/images/cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5",
+                                    "rel": "bookmark"
+                                }
+                            ]
+                        },
+                        "ramdisk_id": null,
+                        "schema": null,
+                        "size": null,
+                        "status": null,
+                        "store": null,
+                        "tags": [],
+                        "updated_at": null,
+                        "url": null,
+                        "virtual_size": null,
+                        "visibility": null,
+                        "vm_mode": null,
+                        "vmware_adaptertype": null,
+                        "vmware_ostype": null
+                    },
+                    "image_id": null,
+                    "instance_name": "instance-0002021b",
+                    "is_locked": false,
+                    "kernel_id": "",
+                    "key_name": "team5kp",
+                    "launch_index": 0,
+                    "launched_at": "2024-10-18T15:00:45.000000",
+                    "links": [
+                        {
+                            "href": "https://kvm.tacc.chameleoncloud.org:8774/v2.1/servers/a27b0f6a-3770-4a09-8d9c-15879e259bfb",
+                            "rel": "self"
+                        },
+                        {
+                            "href": "https://kvm.tacc.chameleoncloud.org:8774/servers/a27b0f6a-3770-4a09-8d9c-15879e259bfb",
+                            "rel": "bookmark"
+                        }
+                    ],
+                    "locked_reason": null,
+                    "max_count": null,
+                    "metadata": {},
+                    "min_count": null,
+                    "name": "team5a-3",
+                    "networks": null,
+                    "personality": null,
+                    "pinned_availability_zone": null,
+                    "power_state": 1,
+                    "progress": 0,
+                    "project_id": "9c3848cc69044cdfb5a8c7b5e273b276",
+                    "ramdisk_id": "",
+                    "reservation_id": "r-zlgvg2u7",
+                    "root_device_name": "/dev/vda",
+                    "scheduler_hints": null,
+                    "security_groups": [
+                        {
+                            "description": "For http and https traffic",
+                            "id": "025095ce-02d4-4595-979d-f90d20300497",
+                            "name": "ENABLE_HTTP_HTTPS",
+                            "rules": [
+                                {
+                                    "from_port": 443,
+                                    "group": {},
+                                    "id": "12a71437-79a2-4ff9-b9a7-c9bb80053878",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "025095ce-02d4-4595-979d-f90d20300497",
+                                    "to_port": 443
+                                },
+                                {
+                                    "from_port": 80,
+                                    "group": {},
+                                    "id": "19a08c98-5d71-41d8-b8fb-945f928b3bd2",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "025095ce-02d4-4595-979d-f90d20300497",
+                                    "to_port": 80
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "To allow ping traffic",
+                            "id": "e2241d49-f211-4950-a550-fd28d2b4bc35",
+                            "name": "ENABLE_ICMP",
+                            "rules": [
+                                {
+                                    "from_port": -1,
+                                    "group": {},
+                                    "id": "210239de-5f47-432e-97e4-775f014c3172",
+                                    "ip_protocol": "icmp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "e2241d49-f211-4950-a550-fd28d2b4bc35",
+                                    "to_port": -1
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "To allow remote connection to the VM",
+                            "id": "d51b4231-1896-43b8-accb-f5aa26f2fe9a",
+                            "name": "ENABLE_SSH",
+                            "rules": [
+                                {
+                                    "from_port": 22,
+                                    "group": {},
+                                    "id": "bde62230-c62b-44a7-ab4c-59979c3a4036",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "d51b4231-1896-43b8-accb-f5aa26f2fe9a",
+                                    "to_port": 22
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "Ports used by zeromq apps",
+                            "id": "b2b289a5-00e3-4dfa-b519-1d1a3dc66848",
+                            "name": "ENABLE_ZMQ_APPS",
+                            "rules": [
+                                {
+                                    "from_port": 5555,
+                                    "group": {},
+                                    "id": "f7dd3dfe-cddd-46ac-8348-0cbaea334f94",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "b2b289a5-00e3-4dfa-b519-1d1a3dc66848",
+                                    "to_port": 7777
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "Allow zookeeper server",
+                            "id": "cb537f73-02f3-45f5-bd05-408d437d5a81",
+                            "name": "ENABLE_ZOOKEEPER",
+                            "rules": [
+                                {
+                                    "from_port": 2181,
+                                    "group": {},
+                                    "id": "60f6c9c5-0219-46b6-b8ab-25e0e862f9b1",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "cb537f73-02f3-45f5-bd05-408d437d5a81",
+                                    "to_port": 2181
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "Default security group",
+                            "id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                            "name": "default",
+                            "rules": [
+                                {
+                                    "from_port": 22,
+                                    "group": {},
+                                    "id": "053f704e-13c1-4212-9ab9-c9322a3482d5",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": 22
+                                },
+                                {
+                                    "from_port": null,
+                                    "group": {
+                                        "name": "default",
+                                        "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                                    },
+                                    "id": "14162806-2966-4da0-8350-9f368e7ae04e",
+                                    "ip_protocol": null,
+                                    "ip_range": {},
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": null
+                                },
+                                {
+                                    "from_port": null,
+                                    "group": {
+                                        "name": "default",
+                                        "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                                    },
+                                    "id": "2d7559f4-e662-465b-adfc-016ad72afd3a",
+                                    "ip_protocol": null,
+                                    "ip_range": {},
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": null
+                                },
+                                {
+                                    "from_port": -1,
+                                    "group": {},
+                                    "id": "6633e290-2a7a-4796-acce-9f646d43af8b",
+                                    "ip_protocol": "icmp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": -1
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        }
+                    ],
+                    "server_groups": [],
+                    "status": "ACTIVE",
+                    "tags": [],
+                    "task_state": null,
+                    "terminated_at": null,
+                    "trusted_image_certificates": null,
+                    "updated_at": "2024-10-18T15:00:45Z",
+                    "user_data": null,
+                    "user_id": "d2a2bce3dff76fb82d105fa3a8fbe03928d109d4224a97df4252f3e7055b3edb",
+                    "vm_state": "active",
+                    "volumes": []
+                }
+            },
+            {
+                "ansible_loop_var": "item",
+                "changed": false,
+                "failed": false,
+                "invocation": {
+                    "module_args": {
+                        "api_timeout": null,
+                        "auth": null,
+                        "auth_type": null,
+                        "auto_ip": true,
+                        "availability_zone": null,
+                        "boot_from_volume": false,
+                        "boot_volume": null,
+                        "ca_cert": null,
+                        "client_cert": null,
+                        "client_key": null,
+                        "config_drive": false,
+                        "delete_ips": false,
+                        "description": null,
+                        "flavor": "m1.medium",
+                        "flavor_include": null,
+                        "flavor_ram": null,
+                        "floating_ip_pools": null,
+                        "floating_ips": null,
+                        "image": "CC-Ubuntu22.04",
+                        "image_exclude": "(deprecated)",
+                        "interface": "public",
+                        "key_name": "team5kp",
+                        "metadata": null,
+                        "name": "team5a-4",
+                        "network": "CH-822922-net",
+                        "nics": [],
+                        "region_name": null,
+                        "reuse_ips": true,
+                        "scheduler_hints": null,
+                        "sdk_log_level": "INFO",
+                        "sdk_log_path": null,
+                        "security_groups": [
+                            "default",
+                            "ENABLE_HTTP_HTTPS",
+                            "ENABLE_SSH",
+                            "ENABLE_ICMP",
+                            "ENABLE_ZMQ_APPS",
+                            "ENABLE_ZOOKEEPER"
+                        ],
+                        "state": "present",
+                        "terminate_volume": false,
+                        "timeout": 600,
+                        "userdata": null,
+                        "validate_certs": null,
+                        "volume_size": null,
+                        "volumes": [],
+                        "wait": true
+                    }
+                },
+                "item": 4,
+                "server": {
+                    "access_ipv4": "",
+                    "access_ipv6": "",
+                    "addresses": {
+                        "CH-822922-net": [
+                            {
+                                "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:4e:64:06",
+                                "OS-EXT-IPS:type": "fixed",
+                                "addr": "192.168.5.174",
+                                "version": 4
+                            },
+                            {
+                                "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:4e:64:06",
+                                "OS-EXT-IPS:type": "floating",
+                                "addr": "129.114.26.219",
+                                "version": 4
+                            }
+                        ]
+                    },
+                    "admin_password": null,
+                    "attached_volumes": [],
+                    "availability_zone": "nova",
+                    "block_device_mapping": null,
+                    "compute_host": "c08-18",
+                    "config_drive": "",
+                    "created_at": "2024-10-18T15:01:07Z",
+                    "description": null,
+                    "disk_config": "MANUAL",
+                    "fault": null,
+                    "flavor": {
+                        "description": null,
+                        "disk": 40,
+                        "ephemeral": 0,
+                        "extra_specs": {},
+                        "id": "m1.medium",
+                        "is_disabled": null,
+                        "is_public": true,
+                        "location": null,
+                        "name": "m1.medium",
+                        "original_name": "m1.medium",
+                        "ram": 4096,
+                        "rxtx_factor": null,
+                        "swap": 0,
+                        "vcpus": 2
+                    },
+                    "flavor_id": null,
+                    "has_config_drive": "",
+                    "host": null,
+                    "host_id": "cf1f17dedec9251024260d229c6d47d5e39b1ddb13e21aa864f35da9",
+                    "host_status": null,
+                    "hostname": "team5a-4",
+                    "hypervisor_hostname": "c08-18",
+                    "id": "d0618d8d-6db4-439a-a1bd-b16a6b21d6b4",
+                    "image": {
+                        "architecture": null,
+                        "checksum": null,
+                        "container_format": null,
+                        "created_at": null,
+                        "direct_url": null,
+                        "disk_format": null,
+                        "file": null,
+                        "has_auto_disk_config": null,
+                        "hash_algo": null,
+                        "hash_value": null,
+                        "hw_cpu_cores": null,
+                        "hw_cpu_policy": null,
+                        "hw_cpu_sockets": null,
+                        "hw_cpu_thread_policy": null,
+                        "hw_cpu_threads": null,
+                        "hw_disk_bus": null,
+                        "hw_machine_type": null,
+                        "hw_qemu_guest_agent": null,
+                        "hw_rng_model": null,
+                        "hw_scsi_model": null,
+                        "hw_serial_port_count": null,
+                        "hw_video_model": null,
+                        "hw_video_ram": null,
+                        "hw_vif_model": null,
+                        "hw_watchdog_action": null,
+                        "hypervisor_type": null,
+                        "id": "cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5",
+                        "instance_type_rxtx_factor": null,
+                        "instance_uuid": null,
+                        "is_hidden": null,
+                        "is_hw_boot_menu_enabled": null,
+                        "is_hw_vif_multiqueue_enabled": null,
+                        "is_protected": null,
+                        "kernel_id": null,
+                        "location": null,
+                        "locations": null,
+                        "metadata": null,
+                        "min_disk": null,
+                        "min_ram": null,
+                        "name": null,
+                        "needs_config_drive": null,
+                        "needs_secure_boot": null,
+                        "os_admin_user": null,
+                        "os_command_line": null,
+                        "os_distro": null,
+                        "os_require_quiesce": null,
+                        "os_shutdown_timeout": null,
+                        "os_type": null,
+                        "os_version": null,
+                        "owner": null,
+                        "owner_id": null,
+                        "properties": {
+                            "links": [
+                                {
+                                    "href": "https://kvm.tacc.chameleoncloud.org:8774/images/cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5",
+                                    "rel": "bookmark"
+                                }
+                            ]
+                        },
+                        "ramdisk_id": null,
+                        "schema": null,
+                        "size": null,
+                        "status": null,
+                        "store": null,
+                        "tags": [],
+                        "updated_at": null,
+                        "url": null,
+                        "virtual_size": null,
+                        "visibility": null,
+                        "vm_mode": null,
+                        "vmware_adaptertype": null,
+                        "vmware_ostype": null
+                    },
+                    "image_id": null,
+                    "instance_name": "instance-0002021c",
+                    "is_locked": false,
+                    "kernel_id": "",
+                    "key_name": "team5kp",
+                    "launch_index": 0,
+                    "launched_at": "2024-10-18T15:01:24.000000",
+                    "links": [
+                        {
+                            "href": "https://kvm.tacc.chameleoncloud.org:8774/v2.1/servers/d0618d8d-6db4-439a-a1bd-b16a6b21d6b4",
+                            "rel": "self"
+                        },
+                        {
+                            "href": "https://kvm.tacc.chameleoncloud.org:8774/servers/d0618d8d-6db4-439a-a1bd-b16a6b21d6b4",
+                            "rel": "bookmark"
+                        }
+                    ],
+                    "locked_reason": null,
+                    "max_count": null,
+                    "metadata": {},
+                    "min_count": null,
+                    "name": "team5a-4",
+                    "networks": null,
+                    "personality": null,
+                    "pinned_availability_zone": null,
+                    "power_state": 1,
+                    "progress": 0,
+                    "project_id": "9c3848cc69044cdfb5a8c7b5e273b276",
+                    "ramdisk_id": "",
+                    "reservation_id": "r-i1z7nmg2",
+                    "root_device_name": "/dev/vda",
+                    "scheduler_hints": null,
+                    "security_groups": [
+                        {
+                            "description": "For http and https traffic",
+                            "id": "025095ce-02d4-4595-979d-f90d20300497",
+                            "name": "ENABLE_HTTP_HTTPS",
+                            "rules": [
+                                {
+                                    "from_port": 443,
+                                    "group": {},
+                                    "id": "12a71437-79a2-4ff9-b9a7-c9bb80053878",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "025095ce-02d4-4595-979d-f90d20300497",
+                                    "to_port": 443
+                                },
+                                {
+                                    "from_port": 80,
+                                    "group": {},
+                                    "id": "19a08c98-5d71-41d8-b8fb-945f928b3bd2",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "025095ce-02d4-4595-979d-f90d20300497",
+                                    "to_port": 80
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "To allow ping traffic",
+                            "id": "e2241d49-f211-4950-a550-fd28d2b4bc35",
+                            "name": "ENABLE_ICMP",
+                            "rules": [
+                                {
+                                    "from_port": -1,
+                                    "group": {},
+                                    "id": "210239de-5f47-432e-97e4-775f014c3172",
+                                    "ip_protocol": "icmp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "e2241d49-f211-4950-a550-fd28d2b4bc35",
+                                    "to_port": -1
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "To allow remote connection to the VM",
+                            "id": "d51b4231-1896-43b8-accb-f5aa26f2fe9a",
+                            "name": "ENABLE_SSH",
+                            "rules": [
+                                {
+                                    "from_port": 22,
+                                    "group": {},
+                                    "id": "bde62230-c62b-44a7-ab4c-59979c3a4036",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "d51b4231-1896-43b8-accb-f5aa26f2fe9a",
+                                    "to_port": 22
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "Ports used by zeromq apps",
+                            "id": "b2b289a5-00e3-4dfa-b519-1d1a3dc66848",
+                            "name": "ENABLE_ZMQ_APPS",
+                            "rules": [
+                                {
+                                    "from_port": 5555,
+                                    "group": {},
+                                    "id": "f7dd3dfe-cddd-46ac-8348-0cbaea334f94",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "b2b289a5-00e3-4dfa-b519-1d1a3dc66848",
+                                    "to_port": 7777
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "Allow zookeeper server",
+                            "id": "cb537f73-02f3-45f5-bd05-408d437d5a81",
+                            "name": "ENABLE_ZOOKEEPER",
+                            "rules": [
+                                {
+                                    "from_port": 2181,
+                                    "group": {},
+                                    "id": "60f6c9c5-0219-46b6-b8ab-25e0e862f9b1",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "cb537f73-02f3-45f5-bd05-408d437d5a81",
+                                    "to_port": 2181
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        },
+                        {
+                            "description": "Default security group",
+                            "id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                            "name": "default",
+                            "rules": [
+                                {
+                                    "from_port": 22,
+                                    "group": {},
+                                    "id": "053f704e-13c1-4212-9ab9-c9322a3482d5",
+                                    "ip_protocol": "tcp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": 22
+                                },
+                                {
+                                    "from_port": null,
+                                    "group": {
+                                        "name": "default",
+                                        "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                                    },
+                                    "id": "14162806-2966-4da0-8350-9f368e7ae04e",
+                                    "ip_protocol": null,
+                                    "ip_range": {},
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": null
+                                },
+                                {
+                                    "from_port": null,
+                                    "group": {
+                                        "name": "default",
+                                        "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                                    },
+                                    "id": "2d7559f4-e662-465b-adfc-016ad72afd3a",
+                                    "ip_protocol": null,
+                                    "ip_range": {},
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": null
+                                },
+                                {
+                                    "from_port": -1,
+                                    "group": {},
+                                    "id": "6633e290-2a7a-4796-acce-9f646d43af8b",
+                                    "ip_protocol": "icmp",
+                                    "ip_range": {
+                                        "cidr": "0.0.0.0/0"
+                                    },
+                                    "parent_group_id": "dfc4191c-08b6-4d39-9317-0841aee2cc0c",
+                                    "to_port": -1
+                                }
+                            ],
+                            "tenant_id": "9c3848cc69044cdfb5a8c7b5e273b276"
+                        }
+                    ],
+                    "server_groups": [],
+                    "status": "ACTIVE",
+                    "tags": [],
+                    "task_state": null,
+                    "terminated_at": null,
+                    "trusted_image_certificates": null,
+                    "updated_at": "2024-10-18T15:01:24Z",
+                    "user_data": null,
+                    "user_id": "d2a2bce3dff76fb82d105fa3a8fbe03928d109d4224a97df4252f3e7055b3edb",
+                    "vm_state": "active",
+                    "volumes": []
+                }
+            }
+        ],
+        "skipped": false
+    }
+}
+
+PLAY [Play 3: Perform fact gathering on all Cloud VMs] *************************
+
+TASK [Gather facts about the VMs] **********************************************
+ok: [127.0.0.1] => (item=1)
+ok: [127.0.0.1] => (item=2)
+ok: [127.0.0.1] => (item=3)
+ok: [127.0.0.1] => (item=4)
+
+TASK [Display private IP addresses of the VMs] *********************************
+ok: [127.0.0.1] => (item={'changed': False, 'servers': [{'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/v2.1/servers/3ab41a27-57f8-4842-96ba-2da2f4ce8006', 'rel': 'self'}, {'href': 'https://kvm.tacc.chameleoncloud.org:8774/servers/3ab41a27-57f8-4842-96ba-2da2f4ce8006', 'rel': 'bookmark'}], 'access_ipv4': '129.114.27.158', 'access_ipv6': '', 'addresses': {'CH-822922-net': [{'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:23:46:9b', 'version': 4, 'addr': '192.168.5.15', 'OS-EXT-IPS:type': 'fixed'}, {'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:23:46:9b', 'version': 4, 'addr': '129.114.27.158', 'OS-EXT-IPS:type': 'floating'}]}, 'admin_password': None, 'attached_volumes': [], 'volumes': [], 'availability_zone': 'nova', 'block_device_mapping': None, 'config_drive': '', 'compute_host': 'c08-18', 'created_at': '2024-10-18T14:59:20Z', 'description': None, 'disk_config': 'MANUAL', 'flavor_id': None, 'flavor': {'name': 'm1.medium', 'original_name': 'm1.medium', 'description': None, 'disk': 40, 'is_public': True, 'ram': 4096, 'vcpus': 2, 'swap': 0, 'ephemeral': 0, 'is_disabled': None, 'rxtx_factor': None, 'extra_specs': {}, 'id': 'm1.medium', 'location': None}, 'has_config_drive': '', 'host_id': 'cf1f17dedec9251024260d229c6d47d5e39b1ddb13e21aa864f35da9', 'fault': None, 'host': None, 'host_status': None, 'hostname': 'team5a-1', 'hypervisor_hostname': 'c08-18', 'image_id': None, 'image': {'checksum': None, 'container_format': None, 'created_at': None, 'disk_format': None, 'is_hidden': None, 'is_protected': None, 'hash_algo': None, 'hash_value': None, 'min_disk': None, 'min_ram': None, 'name': None, 'owner': None, 'owner_id': None, 'properties': {'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/images/cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'rel': 'bookmark'}]}, 'size': None, 'store': None, 'status': None, 'updated_at': None, 'virtual_size': None, 'visibility': None, 'file': None, 'locations': None, 'direct_url': None, 'url': None, 'metadata': None, 'architecture': None, 'hypervisor_type': None, 'instance_type_rxtx_factor': None, 'instance_uuid': None, 'needs_config_drive': None, 'kernel_id': None, 'os_distro': None, 'os_version': None, 'needs_secure_boot': None, 'os_shutdown_timeout': None, 'ramdisk_id': None, 'vm_mode': None, 'hw_cpu_sockets': None, 'hw_cpu_cores': None, 'hw_cpu_threads': None, 'hw_disk_bus': None, 'hw_cpu_policy': None, 'hw_cpu_thread_policy': None, 'hw_rng_model': None, 'hw_machine_type': None, 'hw_scsi_model': None, 'hw_serial_port_count': None, 'hw_video_model': None, 'hw_video_ram': None, 'hw_watchdog_action': None, 'os_command_line': None, 'hw_vif_model': None, 'is_hw_vif_multiqueue_enabled': None, 'is_hw_boot_menu_enabled': None, 'vmware_adaptertype': None, 'vmware_ostype': None, 'has_auto_disk_config': None, 'os_type': None, 'os_admin_user': None, 'hw_qemu_guest_agent': None, 'os_require_quiesce': None, 'schema': None, 'id': 'cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'location': None, 'tags': []}, 'instance_name': 'instance-00020219', 'is_locked': False, 'kernel_id': '', 'key_name': 'team5kp', 'launch_index': 0, 'launched_at': '2024-10-18T14:59:31.000000', 'locked_reason': None, 'max_count': None, 'min_count': None, 'networks': None, 'personality': None, 'pinned_availability_zone': None, 'power_state': 1, 'progress': 0, 'project_id': '9c3848cc69044cdfb5a8c7b5e273b276', 'ramdisk_id': '', 'reservation_id': 'r-ntac6had', 'root_device_name': '/dev/vda', 'scheduler_hints': None, 'security_groups': [{'name': 'ENABLE_HTTP_HTTPS'}, {'name': 'ENABLE_ZMQ_APPS'}, {'name': 'ENABLE_ZOOKEEPER'}, {'name': 'ENABLE_SSH'}, {'name': 'default'}, {'name': 'ENABLE_ICMP'}], 'server_groups': None, 'status': 'ACTIVE', 'task_state': None, 'terminated_at': None, 'trusted_image_certificates': None, 'updated_at': '2024-10-18T14:59:31Z', 'user_data': None, 'user_id': 'd2a2bce3dff76fb82d105fa3a8fbe03928d109d4224a97df4252f3e7055b3edb', 'vm_state': 'active', 'id': '3ab41a27-57f8-4842-96ba-2da2f4ce8006', 'name': 'team5a-1', 'metadata': {}, 'tags': []}], 'invocation': {'module_args': {'name': 'team5a-1', 'wait': True, 'timeout': 180, 'interface': 'public', 'sdk_log_level': 'INFO', 'detailed': False, 'all_projects': False, 'auth_type': None, 'auth': None, 'region_name': None, 'validate_certs': None, 'ca_cert': None, 'client_cert': None, 'client_key': None, 'api_timeout': None, 'sdk_log_path': None, 'filters': None}}, 'failed': False, 'item': 1, 'ansible_loop_var': 'item'}) => {
+    "msg": "VM team5a-1 has private IP 192.168.5.15"
+}
+ok: [127.0.0.1] => (item={'changed': False, 'servers': [{'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/v2.1/servers/21c47430-925c-45ad-ac3b-b373a6743b8c', 'rel': 'self'}, {'href': 'https://kvm.tacc.chameleoncloud.org:8774/servers/21c47430-925c-45ad-ac3b-b373a6743b8c', 'rel': 'bookmark'}], 'access_ipv4': '129.114.27.239', 'access_ipv6': '', 'addresses': {'CH-822922-net': [{'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:59:a4:5a', 'version': 4, 'addr': '192.168.5.169', 'OS-EXT-IPS:type': 'fixed'}, {'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:59:a4:5a', 'version': 4, 'addr': '129.114.27.239', 'OS-EXT-IPS:type': 'floating'}]}, 'admin_password': None, 'attached_volumes': [], 'volumes': [], 'availability_zone': 'nova', 'block_device_mapping': None, 'config_drive': '', 'compute_host': 'c08-18', 'created_at': '2024-10-18T14:59:55Z', 'description': None, 'disk_config': 'MANUAL', 'flavor_id': None, 'flavor': {'name': 'm1.medium', 'original_name': 'm1.medium', 'description': None, 'disk': 40, 'is_public': True, 'ram': 4096, 'vcpus': 2, 'swap': 0, 'ephemeral': 0, 'is_disabled': None, 'rxtx_factor': None, 'extra_specs': {}, 'id': 'm1.medium', 'location': None}, 'has_config_drive': '', 'host_id': 'cf1f17dedec9251024260d229c6d47d5e39b1ddb13e21aa864f35da9', 'fault': None, 'host': None, 'host_status': None, 'hostname': 'team5a-2', 'hypervisor_hostname': 'c08-18', 'image_id': None, 'image': {'checksum': None, 'container_format': None, 'created_at': None, 'disk_format': None, 'is_hidden': None, 'is_protected': None, 'hash_algo': None, 'hash_value': None, 'min_disk': None, 'min_ram': None, 'name': None, 'owner': None, 'owner_id': None, 'properties': {'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/images/cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'rel': 'bookmark'}]}, 'size': None, 'store': None, 'status': None, 'updated_at': None, 'virtual_size': None, 'visibility': None, 'file': None, 'locations': None, 'direct_url': None, 'url': None, 'metadata': None, 'architecture': None, 'hypervisor_type': None, 'instance_type_rxtx_factor': None, 'instance_uuid': None, 'needs_config_drive': None, 'kernel_id': None, 'os_distro': None, 'os_version': None, 'needs_secure_boot': None, 'os_shutdown_timeout': None, 'ramdisk_id': None, 'vm_mode': None, 'hw_cpu_sockets': None, 'hw_cpu_cores': None, 'hw_cpu_threads': None, 'hw_disk_bus': None, 'hw_cpu_policy': None, 'hw_cpu_thread_policy': None, 'hw_rng_model': None, 'hw_machine_type': None, 'hw_scsi_model': None, 'hw_serial_port_count': None, 'hw_video_model': None, 'hw_video_ram': None, 'hw_watchdog_action': None, 'os_command_line': None, 'hw_vif_model': None, 'is_hw_vif_multiqueue_enabled': None, 'is_hw_boot_menu_enabled': None, 'vmware_adaptertype': None, 'vmware_ostype': None, 'has_auto_disk_config': None, 'os_type': None, 'os_admin_user': None, 'hw_qemu_guest_agent': None, 'os_require_quiesce': None, 'schema': None, 'id': 'cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'location': None, 'tags': []}, 'instance_name': 'instance-0002021a', 'is_locked': False, 'kernel_id': '', 'key_name': 'team5kp', 'launch_index': 0, 'launched_at': '2024-10-18T15:00:06.000000', 'locked_reason': None, 'max_count': None, 'min_count': None, 'networks': None, 'personality': None, 'pinned_availability_zone': None, 'power_state': 1, 'progress': 0, 'project_id': '9c3848cc69044cdfb5a8c7b5e273b276', 'ramdisk_id': '', 'reservation_id': 'r-gc5c0hg2', 'root_device_name': '/dev/vda', 'scheduler_hints': None, 'security_groups': [{'name': 'ENABLE_HTTP_HTTPS'}, {'name': 'ENABLE_ZMQ_APPS'}, {'name': 'ENABLE_ZOOKEEPER'}, {'name': 'ENABLE_SSH'}, {'name': 'default'}, {'name': 'ENABLE_ICMP'}], 'server_groups': None, 'status': 'ACTIVE', 'task_state': None, 'terminated_at': None, 'trusted_image_certificates': None, 'updated_at': '2024-10-18T15:00:06Z', 'user_data': None, 'user_id': 'd2a2bce3dff76fb82d105fa3a8fbe03928d109d4224a97df4252f3e7055b3edb', 'vm_state': 'active', 'id': '21c47430-925c-45ad-ac3b-b373a6743b8c', 'name': 'team5a-2', 'metadata': {}, 'tags': []}], 'invocation': {'module_args': {'name': 'team5a-2', 'wait': True, 'timeout': 180, 'interface': 'public', 'sdk_log_level': 'INFO', 'detailed': False, 'all_projects': False, 'auth_type': None, 'auth': None, 'region_name': None, 'validate_certs': None, 'ca_cert': None, 'client_cert': None, 'client_key': None, 'api_timeout': None, 'sdk_log_path': None, 'filters': None}}, 'failed': False, 'item': 2, 'ansible_loop_var': 'item'}) => {
+    "msg": "VM team5a-2 has private IP 192.168.5.169"
+}
+ok: [127.0.0.1] => (item={'changed': False, 'servers': [{'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/v2.1/servers/a27b0f6a-3770-4a09-8d9c-15879e259bfb', 'rel': 'self'}, {'href': 'https://kvm.tacc.chameleoncloud.org:8774/servers/a27b0f6a-3770-4a09-8d9c-15879e259bfb', 'rel': 'bookmark'}], 'access_ipv4': '129.114.25.190', 'access_ipv6': '', 'addresses': {'CH-822922-net': [{'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:56:f0:bb', 'version': 4, 'addr': '192.168.5.87', 'OS-EXT-IPS:type': 'fixed'}, {'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:56:f0:bb', 'version': 4, 'addr': '129.114.25.190', 'OS-EXT-IPS:type': 'floating'}]}, 'admin_password': None, 'attached_volumes': [], 'volumes': [], 'availability_zone': 'nova', 'block_device_mapping': None, 'config_drive': '', 'compute_host': 'c09-28', 'created_at': '2024-10-18T15:00:31Z', 'description': None, 'disk_config': 'MANUAL', 'flavor_id': None, 'flavor': {'name': 'm1.medium', 'original_name': 'm1.medium', 'description': None, 'disk': 40, 'is_public': True, 'ram': 4096, 'vcpus': 2, 'swap': 0, 'ephemeral': 0, 'is_disabled': None, 'rxtx_factor': None, 'extra_specs': {}, 'id': 'm1.medium', 'location': None}, 'has_config_drive': '', 'host_id': '877e302a72d7ec3d6da6f6ff42e5ff26137bd1d7bf28e8cebbd26a91', 'fault': None, 'host': None, 'host_status': None, 'hostname': 'team5a-3', 'hypervisor_hostname': 'c09-28', 'image_id': None, 'image': {'checksum': None, 'container_format': None, 'created_at': None, 'disk_format': None, 'is_hidden': None, 'is_protected': None, 'hash_algo': None, 'hash_value': None, 'min_disk': None, 'min_ram': None, 'name': None, 'owner': None, 'owner_id': None, 'properties': {'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/images/cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'rel': 'bookmark'}]}, 'size': None, 'store': None, 'status': None, 'updated_at': None, 'virtual_size': None, 'visibility': None, 'file': None, 'locations': None, 'direct_url': None, 'url': None, 'metadata': None, 'architecture': None, 'hypervisor_type': None, 'instance_type_rxtx_factor': None, 'instance_uuid': None, 'needs_config_drive': None, 'kernel_id': None, 'os_distro': None, 'os_version': None, 'needs_secure_boot': None, 'os_shutdown_timeout': None, 'ramdisk_id': None, 'vm_mode': None, 'hw_cpu_sockets': None, 'hw_cpu_cores': None, 'hw_cpu_threads': None, 'hw_disk_bus': None, 'hw_cpu_policy': None, 'hw_cpu_thread_policy': None, 'hw_rng_model': None, 'hw_machine_type': None, 'hw_scsi_model': None, 'hw_serial_port_count': None, 'hw_video_model': None, 'hw_video_ram': None, 'hw_watchdog_action': None, 'os_command_line': None, 'hw_vif_model': None, 'is_hw_vif_multiqueue_enabled': None, 'is_hw_boot_menu_enabled': None, 'vmware_adaptertype': None, 'vmware_ostype': None, 'has_auto_disk_config': None, 'os_type': None, 'os_admin_user': None, 'hw_qemu_guest_agent': None, 'os_require_quiesce': None, 'schema': None, 'id': 'cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'location': None, 'tags': []}, 'instance_name': 'instance-0002021b', 'is_locked': False, 'kernel_id': '', 'key_name': 'team5kp', 'launch_index': 0, 'launched_at': '2024-10-18T15:00:45.000000', 'locked_reason': None, 'max_count': None, 'min_count': None, 'networks': None, 'personality': None, 'pinned_availability_zone': None, 'power_state': 1, 'progress': 0, 'project_id': '9c3848cc69044cdfb5a8c7b5e273b276', 'ramdisk_id': '', 'reservation_id': 'r-zlgvg2u7', 'root_device_name': '/dev/vda', 'scheduler_hints': None, 'security_groups': [{'name': 'ENABLE_HTTP_HTTPS'}, {'name': 'ENABLE_ZMQ_APPS'}, {'name': 'ENABLE_ZOOKEEPER'}, {'name': 'ENABLE_SSH'}, {'name': 'default'}, {'name': 'ENABLE_ICMP'}], 'server_groups': None, 'status': 'ACTIVE', 'task_state': None, 'terminated_at': None, 'trusted_image_certificates': None, 'updated_at': '2024-10-18T15:00:45Z', 'user_data': None, 'user_id': 'd2a2bce3dff76fb82d105fa3a8fbe03928d109d4224a97df4252f3e7055b3edb', 'vm_state': 'active', 'id': 'a27b0f6a-3770-4a09-8d9c-15879e259bfb', 'name': 'team5a-3', 'metadata': {}, 'tags': []}], 'invocation': {'module_args': {'name': 'team5a-3', 'wait': True, 'timeout': 180, 'interface': 'public', 'sdk_log_level': 'INFO', 'detailed': False, 'all_projects': False, 'auth_type': None, 'auth': None, 'region_name': None, 'validate_certs': None, 'ca_cert': None, 'client_cert': None, 'client_key': None, 'api_timeout': None, 'sdk_log_path': None, 'filters': None}}, 'failed': False, 'item': 3, 'ansible_loop_var': 'item'}) => {
+    "msg": "VM team5a-3 has private IP 192.168.5.87"
+}
+ok: [127.0.0.1] => (item={'changed': False, 'servers': [{'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/v2.1/servers/d0618d8d-6db4-439a-a1bd-b16a6b21d6b4', 'rel': 'self'}, {'href': 'https://kvm.tacc.chameleoncloud.org:8774/servers/d0618d8d-6db4-439a-a1bd-b16a6b21d6b4', 'rel': 'bookmark'}], 'access_ipv4': '129.114.26.219', 'access_ipv6': '', 'addresses': {'CH-822922-net': [{'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:4e:64:06', 'version': 4, 'addr': '192.168.5.174', 'OS-EXT-IPS:type': 'fixed'}, {'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:4e:64:06', 'version': 4, 'addr': '129.114.26.219', 'OS-EXT-IPS:type': 'floating'}]}, 'admin_password': None, 'attached_volumes': [], 'volumes': [], 'availability_zone': 'nova', 'block_device_mapping': None, 'config_drive': '', 'compute_host': 'c08-18', 'created_at': '2024-10-18T15:01:07Z', 'description': None, 'disk_config': 'MANUAL', 'flavor_id': None, 'flavor': {'name': 'm1.medium', 'original_name': 'm1.medium', 'description': None, 'disk': 40, 'is_public': True, 'ram': 4096, 'vcpus': 2, 'swap': 0, 'ephemeral': 0, 'is_disabled': None, 'rxtx_factor': None, 'extra_specs': {}, 'id': 'm1.medium', 'location': None}, 'has_config_drive': '', 'host_id': 'cf1f17dedec9251024260d229c6d47d5e39b1ddb13e21aa864f35da9', 'fault': None, 'host': None, 'host_status': None, 'hostname': 'team5a-4', 'hypervisor_hostname': 'c08-18', 'image_id': None, 'image': {'checksum': None, 'container_format': None, 'created_at': None, 'disk_format': None, 'is_hidden': None, 'is_protected': None, 'hash_algo': None, 'hash_value': None, 'min_disk': None, 'min_ram': None, 'name': None, 'owner': None, 'owner_id': None, 'properties': {'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/images/cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'rel': 'bookmark'}]}, 'size': None, 'store': None, 'status': None, 'updated_at': None, 'virtual_size': None, 'visibility': None, 'file': None, 'locations': None, 'direct_url': None, 'url': None, 'metadata': None, 'architecture': None, 'hypervisor_type': None, 'instance_type_rxtx_factor': None, 'instance_uuid': None, 'needs_config_drive': None, 'kernel_id': None, 'os_distro': None, 'os_version': None, 'needs_secure_boot': None, 'os_shutdown_timeout': None, 'ramdisk_id': None, 'vm_mode': None, 'hw_cpu_sockets': None, 'hw_cpu_cores': None, 'hw_cpu_threads': None, 'hw_disk_bus': None, 'hw_cpu_policy': None, 'hw_cpu_thread_policy': None, 'hw_rng_model': None, 'hw_machine_type': None, 'hw_scsi_model': None, 'hw_serial_port_count': None, 'hw_video_model': None, 'hw_video_ram': None, 'hw_watchdog_action': None, 'os_command_line': None, 'hw_vif_model': None, 'is_hw_vif_multiqueue_enabled': None, 'is_hw_boot_menu_enabled': None, 'vmware_adaptertype': None, 'vmware_ostype': None, 'has_auto_disk_config': None, 'os_type': None, 'os_admin_user': None, 'hw_qemu_guest_agent': None, 'os_require_quiesce': None, 'schema': None, 'id': 'cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'location': None, 'tags': []}, 'instance_name': 'instance-0002021c', 'is_locked': False, 'kernel_id': '', 'key_name': 'team5kp', 'launch_index': 0, 'launched_at': '2024-10-18T15:01:24.000000', 'locked_reason': None, 'max_count': None, 'min_count': None, 'networks': None, 'personality': None, 'pinned_availability_zone': None, 'power_state': 1, 'progress': 0, 'project_id': '9c3848cc69044cdfb5a8c7b5e273b276', 'ramdisk_id': '', 'reservation_id': 'r-i1z7nmg2', 'root_device_name': '/dev/vda', 'scheduler_hints': None, 'security_groups': [{'name': 'ENABLE_HTTP_HTTPS'}, {'name': 'ENABLE_ZMQ_APPS'}, {'name': 'ENABLE_ZOOKEEPER'}, {'name': 'ENABLE_SSH'}, {'name': 'default'}, {'name': 'ENABLE_ICMP'}], 'server_groups': None, 'status': 'ACTIVE', 'task_state': None, 'terminated_at': None, 'trusted_image_certificates': None, 'updated_at': '2024-10-18T15:01:24Z', 'user_data': None, 'user_id': 'd2a2bce3dff76fb82d105fa3a8fbe03928d109d4224a97df4252f3e7055b3edb', 'vm_state': 'active', 'id': 'd0618d8d-6db4-439a-a1bd-b16a6b21d6b4', 'name': 'team5a-4', 'metadata': {}, 'tags': []}], 'invocation': {'module_args': {'name': 'team5a-4', 'wait': True, 'timeout': 180, 'interface': 'public', 'sdk_log_level': 'INFO', 'detailed': False, 'all_projects': False, 'auth_type': None, 'auth': None, 'region_name': None, 'validate_certs': None, 'ca_cert': None, 'client_cert': None, 'client_key': None, 'api_timeout': None, 'sdk_log_path': None, 'filters': None}}, 'failed': False, 'item': 4, 'ansible_loop_var': 'item'}) => {
+    "msg": "VM team5a-4 has private IP 192.168.5.174"
+}
+
+TASK [Get current working directory] *******************************************
+changed: [127.0.0.1]
+
+TASK [Update [CloudVMs] section in inventory.ini] ******************************
+changed: [127.0.0.1] => (item={'changed': False, 'servers': [{'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/v2.1/servers/3ab41a27-57f8-4842-96ba-2da2f4ce8006', 'rel': 'self'}, {'href': 'https://kvm.tacc.chameleoncloud.org:8774/servers/3ab41a27-57f8-4842-96ba-2da2f4ce8006', 'rel': 'bookmark'}], 'access_ipv4': '129.114.27.158', 'access_ipv6': '', 'addresses': {'CH-822922-net': [{'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:23:46:9b', 'version': 4, 'addr': '192.168.5.15', 'OS-EXT-IPS:type': 'fixed'}, {'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:23:46:9b', 'version': 4, 'addr': '129.114.27.158', 'OS-EXT-IPS:type': 'floating'}]}, 'admin_password': None, 'attached_volumes': [], 'volumes': [], 'availability_zone': 'nova', 'block_device_mapping': None, 'config_drive': '', 'compute_host': 'c08-18', 'created_at': '2024-10-18T14:59:20Z', 'description': None, 'disk_config': 'MANUAL', 'flavor_id': None, 'flavor': {'name': 'm1.medium', 'original_name': 'm1.medium', 'description': None, 'disk': 40, 'is_public': True, 'ram': 4096, 'vcpus': 2, 'swap': 0, 'ephemeral': 0, 'is_disabled': None, 'rxtx_factor': None, 'extra_specs': {}, 'id': 'm1.medium', 'location': None}, 'has_config_drive': '', 'host_id': 'cf1f17dedec9251024260d229c6d47d5e39b1ddb13e21aa864f35da9', 'fault': None, 'host': None, 'host_status': None, 'hostname': 'team5a-1', 'hypervisor_hostname': 'c08-18', 'image_id': None, 'image': {'checksum': None, 'container_format': None, 'created_at': None, 'disk_format': None, 'is_hidden': None, 'is_protected': None, 'hash_algo': None, 'hash_value': None, 'min_disk': None, 'min_ram': None, 'name': None, 'owner': None, 'owner_id': None, 'properties': {'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/images/cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'rel': 'bookmark'}]}, 'size': None, 'store': None, 'status': None, 'updated_at': None, 'virtual_size': None, 'visibility': None, 'file': None, 'locations': None, 'direct_url': None, 'url': None, 'metadata': None, 'architecture': None, 'hypervisor_type': None, 'instance_type_rxtx_factor': None, 'instance_uuid': None, 'needs_config_drive': None, 'kernel_id': None, 'os_distro': None, 'os_version': None, 'needs_secure_boot': None, 'os_shutdown_timeout': None, 'ramdisk_id': None, 'vm_mode': None, 'hw_cpu_sockets': None, 'hw_cpu_cores': None, 'hw_cpu_threads': None, 'hw_disk_bus': None, 'hw_cpu_policy': None, 'hw_cpu_thread_policy': None, 'hw_rng_model': None, 'hw_machine_type': None, 'hw_scsi_model': None, 'hw_serial_port_count': None, 'hw_video_model': None, 'hw_video_ram': None, 'hw_watchdog_action': None, 'os_command_line': None, 'hw_vif_model': None, 'is_hw_vif_multiqueue_enabled': None, 'is_hw_boot_menu_enabled': None, 'vmware_adaptertype': None, 'vmware_ostype': None, 'has_auto_disk_config': None, 'os_type': None, 'os_admin_user': None, 'hw_qemu_guest_agent': None, 'os_require_quiesce': None, 'schema': None, 'id': 'cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'location': None, 'tags': []}, 'instance_name': 'instance-00020219', 'is_locked': False, 'kernel_id': '', 'key_name': 'team5kp', 'launch_index': 0, 'launched_at': '2024-10-18T14:59:31.000000', 'locked_reason': None, 'max_count': None, 'min_count': None, 'networks': None, 'personality': None, 'pinned_availability_zone': None, 'power_state': 1, 'progress': 0, 'project_id': '9c3848cc69044cdfb5a8c7b5e273b276', 'ramdisk_id': '', 'reservation_id': 'r-ntac6had', 'root_device_name': '/dev/vda', 'scheduler_hints': None, 'security_groups': [{'name': 'ENABLE_HTTP_HTTPS'}, {'name': 'ENABLE_ZMQ_APPS'}, {'name': 'ENABLE_ZOOKEEPER'}, {'name': 'ENABLE_SSH'}, {'name': 'default'}, {'name': 'ENABLE_ICMP'}], 'server_groups': None, 'status': 'ACTIVE', 'task_state': None, 'terminated_at': None, 'trusted_image_certificates': None, 'updated_at': '2024-10-18T14:59:31Z', 'user_data': None, 'user_id': 'd2a2bce3dff76fb82d105fa3a8fbe03928d109d4224a97df4252f3e7055b3edb', 'vm_state': 'active', 'id': '3ab41a27-57f8-4842-96ba-2da2f4ce8006', 'name': 'team5a-1', 'metadata': {}, 'tags': []}], 'invocation': {'module_args': {'name': 'team5a-1', 'wait': True, 'timeout': 180, 'interface': 'public', 'sdk_log_level': 'INFO', 'detailed': False, 'all_projects': False, 'auth_type': None, 'auth': None, 'region_name': None, 'validate_certs': None, 'ca_cert': None, 'client_cert': None, 'client_key': None, 'api_timeout': None, 'sdk_log_path': None, 'filters': None}}, 'failed': False, 'item': 1, 'ansible_loop_var': 'item'})
+changed: [127.0.0.1] => (item={'changed': False, 'servers': [{'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/v2.1/servers/21c47430-925c-45ad-ac3b-b373a6743b8c', 'rel': 'self'}, {'href': 'https://kvm.tacc.chameleoncloud.org:8774/servers/21c47430-925c-45ad-ac3b-b373a6743b8c', 'rel': 'bookmark'}], 'access_ipv4': '129.114.27.239', 'access_ipv6': '', 'addresses': {'CH-822922-net': [{'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:59:a4:5a', 'version': 4, 'addr': '192.168.5.169', 'OS-EXT-IPS:type': 'fixed'}, {'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:59:a4:5a', 'version': 4, 'addr': '129.114.27.239', 'OS-EXT-IPS:type': 'floating'}]}, 'admin_password': None, 'attached_volumes': [], 'volumes': [], 'availability_zone': 'nova', 'block_device_mapping': None, 'config_drive': '', 'compute_host': 'c08-18', 'created_at': '2024-10-18T14:59:55Z', 'description': None, 'disk_config': 'MANUAL', 'flavor_id': None, 'flavor': {'name': 'm1.medium', 'original_name': 'm1.medium', 'description': None, 'disk': 40, 'is_public': True, 'ram': 4096, 'vcpus': 2, 'swap': 0, 'ephemeral': 0, 'is_disabled': None, 'rxtx_factor': None, 'extra_specs': {}, 'id': 'm1.medium', 'location': None}, 'has_config_drive': '', 'host_id': 'cf1f17dedec9251024260d229c6d47d5e39b1ddb13e21aa864f35da9', 'fault': None, 'host': None, 'host_status': None, 'hostname': 'team5a-2', 'hypervisor_hostname': 'c08-18', 'image_id': None, 'image': {'checksum': None, 'container_format': None, 'created_at': None, 'disk_format': None, 'is_hidden': None, 'is_protected': None, 'hash_algo': None, 'hash_value': None, 'min_disk': None, 'min_ram': None, 'name': None, 'owner': None, 'owner_id': None, 'properties': {'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/images/cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'rel': 'bookmark'}]}, 'size': None, 'store': None, 'status': None, 'updated_at': None, 'virtual_size': None, 'visibility': None, 'file': None, 'locations': None, 'direct_url': None, 'url': None, 'metadata': None, 'architecture': None, 'hypervisor_type': None, 'instance_type_rxtx_factor': None, 'instance_uuid': None, 'needs_config_drive': None, 'kernel_id': None, 'os_distro': None, 'os_version': None, 'needs_secure_boot': None, 'os_shutdown_timeout': None, 'ramdisk_id': None, 'vm_mode': None, 'hw_cpu_sockets': None, 'hw_cpu_cores': None, 'hw_cpu_threads': None, 'hw_disk_bus': None, 'hw_cpu_policy': None, 'hw_cpu_thread_policy': None, 'hw_rng_model': None, 'hw_machine_type': None, 'hw_scsi_model': None, 'hw_serial_port_count': None, 'hw_video_model': None, 'hw_video_ram': None, 'hw_watchdog_action': None, 'os_command_line': None, 'hw_vif_model': None, 'is_hw_vif_multiqueue_enabled': None, 'is_hw_boot_menu_enabled': None, 'vmware_adaptertype': None, 'vmware_ostype': None, 'has_auto_disk_config': None, 'os_type': None, 'os_admin_user': None, 'hw_qemu_guest_agent': None, 'os_require_quiesce': None, 'schema': None, 'id': 'cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'location': None, 'tags': []}, 'instance_name': 'instance-0002021a', 'is_locked': False, 'kernel_id': '', 'key_name': 'team5kp', 'launch_index': 0, 'launched_at': '2024-10-18T15:00:06.000000', 'locked_reason': None, 'max_count': None, 'min_count': None, 'networks': None, 'personality': None, 'pinned_availability_zone': None, 'power_state': 1, 'progress': 0, 'project_id': '9c3848cc69044cdfb5a8c7b5e273b276', 'ramdisk_id': '', 'reservation_id': 'r-gc5c0hg2', 'root_device_name': '/dev/vda', 'scheduler_hints': None, 'security_groups': [{'name': 'ENABLE_HTTP_HTTPS'}, {'name': 'ENABLE_ZMQ_APPS'}, {'name': 'ENABLE_ZOOKEEPER'}, {'name': 'ENABLE_SSH'}, {'name': 'default'}, {'name': 'ENABLE_ICMP'}], 'server_groups': None, 'status': 'ACTIVE', 'task_state': None, 'terminated_at': None, 'trusted_image_certificates': None, 'updated_at': '2024-10-18T15:00:06Z', 'user_data': None, 'user_id': 'd2a2bce3dff76fb82d105fa3a8fbe03928d109d4224a97df4252f3e7055b3edb', 'vm_state': 'active', 'id': '21c47430-925c-45ad-ac3b-b373a6743b8c', 'name': 'team5a-2', 'metadata': {}, 'tags': []}], 'invocation': {'module_args': {'name': 'team5a-2', 'wait': True, 'timeout': 180, 'interface': 'public', 'sdk_log_level': 'INFO', 'detailed': False, 'all_projects': False, 'auth_type': None, 'auth': None, 'region_name': None, 'validate_certs': None, 'ca_cert': None, 'client_cert': None, 'client_key': None, 'api_timeout': None, 'sdk_log_path': None, 'filters': None}}, 'failed': False, 'item': 2, 'ansible_loop_var': 'item'})
+changed: [127.0.0.1] => (item={'changed': False, 'servers': [{'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/v2.1/servers/a27b0f6a-3770-4a09-8d9c-15879e259bfb', 'rel': 'self'}, {'href': 'https://kvm.tacc.chameleoncloud.org:8774/servers/a27b0f6a-3770-4a09-8d9c-15879e259bfb', 'rel': 'bookmark'}], 'access_ipv4': '129.114.25.190', 'access_ipv6': '', 'addresses': {'CH-822922-net': [{'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:56:f0:bb', 'version': 4, 'addr': '192.168.5.87', 'OS-EXT-IPS:type': 'fixed'}, {'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:56:f0:bb', 'version': 4, 'addr': '129.114.25.190', 'OS-EXT-IPS:type': 'floating'}]}, 'admin_password': None, 'attached_volumes': [], 'volumes': [], 'availability_zone': 'nova', 'block_device_mapping': None, 'config_drive': '', 'compute_host': 'c09-28', 'created_at': '2024-10-18T15:00:31Z', 'description': None, 'disk_config': 'MANUAL', 'flavor_id': None, 'flavor': {'name': 'm1.medium', 'original_name': 'm1.medium', 'description': None, 'disk': 40, 'is_public': True, 'ram': 4096, 'vcpus': 2, 'swap': 0, 'ephemeral': 0, 'is_disabled': None, 'rxtx_factor': None, 'extra_specs': {}, 'id': 'm1.medium', 'location': None}, 'has_config_drive': '', 'host_id': '877e302a72d7ec3d6da6f6ff42e5ff26137bd1d7bf28e8cebbd26a91', 'fault': None, 'host': None, 'host_status': None, 'hostname': 'team5a-3', 'hypervisor_hostname': 'c09-28', 'image_id': None, 'image': {'checksum': None, 'container_format': None, 'created_at': None, 'disk_format': None, 'is_hidden': None, 'is_protected': None, 'hash_algo': None, 'hash_value': None, 'min_disk': None, 'min_ram': None, 'name': None, 'owner': None, 'owner_id': None, 'properties': {'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/images/cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'rel': 'bookmark'}]}, 'size': None, 'store': None, 'status': None, 'updated_at': None, 'virtual_size': None, 'visibility': None, 'file': None, 'locations': None, 'direct_url': None, 'url': None, 'metadata': None, 'architecture': None, 'hypervisor_type': None, 'instance_type_rxtx_factor': None, 'instance_uuid': None, 'needs_config_drive': None, 'kernel_id': None, 'os_distro': None, 'os_version': None, 'needs_secure_boot': None, 'os_shutdown_timeout': None, 'ramdisk_id': None, 'vm_mode': None, 'hw_cpu_sockets': None, 'hw_cpu_cores': None, 'hw_cpu_threads': None, 'hw_disk_bus': None, 'hw_cpu_policy': None, 'hw_cpu_thread_policy': None, 'hw_rng_model': None, 'hw_machine_type': None, 'hw_scsi_model': None, 'hw_serial_port_count': None, 'hw_video_model': None, 'hw_video_ram': None, 'hw_watchdog_action': None, 'os_command_line': None, 'hw_vif_model': None, 'is_hw_vif_multiqueue_enabled': None, 'is_hw_boot_menu_enabled': None, 'vmware_adaptertype': None, 'vmware_ostype': None, 'has_auto_disk_config': None, 'os_type': None, 'os_admin_user': None, 'hw_qemu_guest_agent': None, 'os_require_quiesce': None, 'schema': None, 'id': 'cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'location': None, 'tags': []}, 'instance_name': 'instance-0002021b', 'is_locked': False, 'kernel_id': '', 'key_name': 'team5kp', 'launch_index': 0, 'launched_at': '2024-10-18T15:00:45.000000', 'locked_reason': None, 'max_count': None, 'min_count': None, 'networks': None, 'personality': None, 'pinned_availability_zone': None, 'power_state': 1, 'progress': 0, 'project_id': '9c3848cc69044cdfb5a8c7b5e273b276', 'ramdisk_id': '', 'reservation_id': 'r-zlgvg2u7', 'root_device_name': '/dev/vda', 'scheduler_hints': None, 'security_groups': [{'name': 'ENABLE_HTTP_HTTPS'}, {'name': 'ENABLE_ZMQ_APPS'}, {'name': 'ENABLE_ZOOKEEPER'}, {'name': 'ENABLE_SSH'}, {'name': 'default'}, {'name': 'ENABLE_ICMP'}], 'server_groups': None, 'status': 'ACTIVE', 'task_state': None, 'terminated_at': None, 'trusted_image_certificates': None, 'updated_at': '2024-10-18T15:00:45Z', 'user_data': None, 'user_id': 'd2a2bce3dff76fb82d105fa3a8fbe03928d109d4224a97df4252f3e7055b3edb', 'vm_state': 'active', 'id': 'a27b0f6a-3770-4a09-8d9c-15879e259bfb', 'name': 'team5a-3', 'metadata': {}, 'tags': []}], 'invocation': {'module_args': {'name': 'team5a-3', 'wait': True, 'timeout': 180, 'interface': 'public', 'sdk_log_level': 'INFO', 'detailed': False, 'all_projects': False, 'auth_type': None, 'auth': None, 'region_name': None, 'validate_certs': None, 'ca_cert': None, 'client_cert': None, 'client_key': None, 'api_timeout': None, 'sdk_log_path': None, 'filters': None}}, 'failed': False, 'item': 3, 'ansible_loop_var': 'item'})
+changed: [127.0.0.1] => (item={'changed': False, 'servers': [{'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/v2.1/servers/d0618d8d-6db4-439a-a1bd-b16a6b21d6b4', 'rel': 'self'}, {'href': 'https://kvm.tacc.chameleoncloud.org:8774/servers/d0618d8d-6db4-439a-a1bd-b16a6b21d6b4', 'rel': 'bookmark'}], 'access_ipv4': '129.114.26.219', 'access_ipv6': '', 'addresses': {'CH-822922-net': [{'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:4e:64:06', 'version': 4, 'addr': '192.168.5.174', 'OS-EXT-IPS:type': 'fixed'}, {'OS-EXT-IPS-MAC:mac_addr': 'fa:16:3e:4e:64:06', 'version': 4, 'addr': '129.114.26.219', 'OS-EXT-IPS:type': 'floating'}]}, 'admin_password': None, 'attached_volumes': [], 'volumes': [], 'availability_zone': 'nova', 'block_device_mapping': None, 'config_drive': '', 'compute_host': 'c08-18', 'created_at': '2024-10-18T15:01:07Z', 'description': None, 'disk_config': 'MANUAL', 'flavor_id': None, 'flavor': {'name': 'm1.medium', 'original_name': 'm1.medium', 'description': None, 'disk': 40, 'is_public': True, 'ram': 4096, 'vcpus': 2, 'swap': 0, 'ephemeral': 0, 'is_disabled': None, 'rxtx_factor': None, 'extra_specs': {}, 'id': 'm1.medium', 'location': None}, 'has_config_drive': '', 'host_id': 'cf1f17dedec9251024260d229c6d47d5e39b1ddb13e21aa864f35da9', 'fault': None, 'host': None, 'host_status': None, 'hostname': 'team5a-4', 'hypervisor_hostname': 'c08-18', 'image_id': None, 'image': {'checksum': None, 'container_format': None, 'created_at': None, 'disk_format': None, 'is_hidden': None, 'is_protected': None, 'hash_algo': None, 'hash_value': None, 'min_disk': None, 'min_ram': None, 'name': None, 'owner': None, 'owner_id': None, 'properties': {'links': [{'href': 'https://kvm.tacc.chameleoncloud.org:8774/images/cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'rel': 'bookmark'}]}, 'size': None, 'store': None, 'status': None, 'updated_at': None, 'virtual_size': None, 'visibility': None, 'file': None, 'locations': None, 'direct_url': None, 'url': None, 'metadata': None, 'architecture': None, 'hypervisor_type': None, 'instance_type_rxtx_factor': None, 'instance_uuid': None, 'needs_config_drive': None, 'kernel_id': None, 'os_distro': None, 'os_version': None, 'needs_secure_boot': None, 'os_shutdown_timeout': None, 'ramdisk_id': None, 'vm_mode': None, 'hw_cpu_sockets': None, 'hw_cpu_cores': None, 'hw_cpu_threads': None, 'hw_disk_bus': None, 'hw_cpu_policy': None, 'hw_cpu_thread_policy': None, 'hw_rng_model': None, 'hw_machine_type': None, 'hw_scsi_model': None, 'hw_serial_port_count': None, 'hw_video_model': None, 'hw_video_ram': None, 'hw_watchdog_action': None, 'os_command_line': None, 'hw_vif_model': None, 'is_hw_vif_multiqueue_enabled': None, 'is_hw_boot_menu_enabled': None, 'vmware_adaptertype': None, 'vmware_ostype': None, 'has_auto_disk_config': None, 'os_type': None, 'os_admin_user': None, 'hw_qemu_guest_agent': None, 'os_require_quiesce': None, 'schema': None, 'id': 'cdbbbe8f-f5a5-499c-b4b3-9b7dbecbdfd5', 'location': None, 'tags': []}, 'instance_name': 'instance-0002021c', 'is_locked': False, 'kernel_id': '', 'key_name': 'team5kp', 'launch_index': 0, 'launched_at': '2024-10-18T15:01:24.000000', 'locked_reason': None, 'max_count': None, 'min_count': None, 'networks': None, 'personality': None, 'pinned_availability_zone': None, 'power_state': 1, 'progress': 0, 'project_id': '9c3848cc69044cdfb5a8c7b5e273b276', 'ramdisk_id': '', 'reservation_id': 'r-i1z7nmg2', 'root_device_name': '/dev/vda', 'scheduler_hints': None, 'security_groups': [{'name': 'ENABLE_HTTP_HTTPS'}, {'name': 'ENABLE_ZMQ_APPS'}, {'name': 'ENABLE_ZOOKEEPER'}, {'name': 'ENABLE_SSH'}, {'name': 'default'}, {'name': 'ENABLE_ICMP'}], 'server_groups': None, 'status': 'ACTIVE', 'task_state': None, 'terminated_at': None, 'trusted_image_certificates': None, 'updated_at': '2024-10-18T15:01:24Z', 'user_data': None, 'user_id': 'd2a2bce3dff76fb82d105fa3a8fbe03928d109d4224a97df4252f3e7055b3edb', 'vm_state': 'active', 'id': 'd0618d8d-6db4-439a-a1bd-b16a6b21d6b4', 'name': 'team5a-4', 'metadata': {}, 'tags': []}], 'invocation': {'module_args': {'name': 'team5a-4', 'wait': True, 'timeout': 180, 'interface': 'public', 'sdk_log_level': 'INFO', 'detailed': False, 'all_projects': False, 'auth_type': None, 'auth': None, 'region_name': None, 'validate_certs': None, 'ca_cert': None, 'client_cert': None, 'client_key': None, 'api_timeout': None, 'sdk_log_path': None, 'filters': None}}, 'failed': False, 'item': 4, 'ansible_loop_var': 'item'})
+
+PLAY [Play 4 - Install various packages on Cloud VMs] **************************
+
+TASK [Update apt repository cache] *********************************************
+changed: [team5a-3]
+changed: [team5a-2]
+changed: [team5a-4]
+changed: [team5a-1]
+
+TASK [Install required apt packages] *******************************************
+ok: [team5a-3]
+ok: [team5a-1]
+ok: [team5a-2]
+ok: [team5a-4]
+
+TASK [Ensure pip is installed] *************************************************
+ok: [team5a-3]
+ok: [team5a-2]
+ok: [team5a-1]
+ok: [team5a-4]
+
+TASK [Install required Python packages via pip] ********************************
+ok: [team5a-3]
+ok: [team5a-1]
+ok: [team5a-4]
+ok: [team5a-2]
+
+PLAY [Play 5 - Install Docker on Cloud VMs] ************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [team5a-3]
+ok: [team5a-2]
+ok: [team5a-4]
+ok: [team5a-1]
+
+TASK [Install required dependencies for Docker] ********************************
+ok: [team5a-3] => (item=apt-transport-https)
+ok: [team5a-2] => (item=apt-transport-https)
+ok: [team5a-4] => (item=apt-transport-https)
+ok: [team5a-1] => (item=apt-transport-https)
+ok: [team5a-3] => (item=ca-certificates)
+ok: [team5a-2] => (item=ca-certificates)
+ok: [team5a-1] => (item=ca-certificates)
+ok: [team5a-4] => (item=ca-certificates)
+ok: [team5a-3] => (item=curl)
+ok: [team5a-2] => (item=curl)
+ok: [team5a-1] => (item=curl)
+ok: [team5a-4] => (item=curl)
+ok: [team5a-3] => (item=software-properties-common)
+ok: [team5a-2] => (item=software-properties-common)
+ok: [team5a-1] => (item=software-properties-common)
+ok: [team5a-4] => (item=software-properties-common)
+
+TASK [Add Docker’s official GPG key] *******************************************
+ok: [team5a-3]
+ok: [team5a-1]
+ok: [team5a-4]
+ok: [team5a-2]
+
+TASK [Add Docker repository] ***************************************************
+ok: [team5a-3]
+ok: [team5a-1]
+ok: [team5a-2]
+ok: [team5a-4]
+
+TASK [Install Docker] **********************************************************
+ok: [team5a-3]
+ok: [team5a-2]
+ok: [team5a-1]
+ok: [team5a-4]
+
+TASK [Ensure Docker service is started] ****************************************
+ok: [team5a-2]
+ok: [team5a-3]
+ok: [team5a-1]
+ok: [team5a-4]
+
+PLAY [Play 6a - Download kafka locally] ****************************************
+
+TASK [Download Kafka tarball] **************************************************
+changed: [127.0.0.1]
+
+PLAY [Play 6b - Install Kafka on Cloud VMs] ************************************
+
+TASK [Copy Kafka tarball to the Cloud VM] **************************************
+ok: [team5a-3]
+ok: [team5a-2]
+ok: [team5a-1]
+ok: [team5a-4]
+
+TASK [Extract Kafka tarball] ***************************************************
+ok: [team5a-3]
+ok: [team5a-4]
+ok: [team5a-2]
+ok: [team5a-1]
+
+PLAY [Play 7 - Handle Firewalld policies] **************************************
+
+TASK [Ensure UFW (Uncomplicated Firewall) is installed] ************************
+ok: [team5a-3]
+ok: [team5a-2]
+ok: [team5a-1]
+ok: [team5a-4]
+
+TASK [Ensure UFW is started] ***************************************************
+ok: [team5a-3]
+ok: [team5a-1]
+ok: [team5a-4]
+ok: [team5a-2]
+
+TASK [Allow Kafka port in UFW] *************************************************
+fatal: [team5a-3]: FAILED! => {"changed": false, "commands": ["/usr/sbin/ufw status verbose", "/usr/bin/grep -h '^### tuple' /lib/ufw/user.rules /lib/ufw/user6.rules /etc/ufw/user.rules /etc/ufw/user6.rules /var/lib/ufw/user.rules /var/lib/ufw/user6.rules", "/usr/sbin/ufw --version", "/usr/sbin/ufw allow from any to any port 9092/tcp"], "msg": "ERROR: Bad port '9092/tcp'\n"}
+fatal: [team5a-1]: FAILED! => {"changed": false, "commands": ["/usr/sbin/ufw status verbose", "/usr/bin/grep -h '^### tuple' /lib/ufw/user.rules /lib/ufw/user6.rules /etc/ufw/user.rules /etc/ufw/user6.rules /var/lib/ufw/user.rules /var/lib/ufw/user6.rules", "/usr/sbin/ufw --version", "/usr/sbin/ufw allow from any to any port 9092/tcp"], "msg": "ERROR: Bad port '9092/tcp'\n"}
+fatal: [team5a-4]: FAILED! => {"changed": false, "commands": ["/usr/sbin/ufw status verbose", "/usr/bin/grep -h '^### tuple' /lib/ufw/user.rules /lib/ufw/user6.rules /etc/ufw/user.rules /etc/ufw/user6.rules /var/lib/ufw/user.rules /var/lib/ufw/user6.rules", "/usr/sbin/ufw --version", "/usr/sbin/ufw allow from any to any port 9092/tcp"], "msg": "ERROR: Bad port '9092/tcp'\n"}
+fatal: [team5a-2]: FAILED! => {"changed": false, "commands": ["/usr/sbin/ufw status verbose", "/usr/bin/grep -h '^### tuple' /lib/ufw/user.rules /lib/ufw/user6.rules /etc/ufw/user.rules /etc/ufw/user6.rules /var/lib/ufw/user.rules /var/lib/ufw/user6.rules", "/usr/sbin/ufw --version", "/usr/sbin/ufw allow from any to any port 9092/tcp"], "msg": "ERROR: Bad port '9092/tcp'\n"}
+
+PLAY RECAP *********************************************************************
+127.0.0.1                  : ok=8    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+team5a-1                   : ok=14   changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+team5a-2                   : ok=14   changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+team5a-3                   : ok=14   changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+team5a-4                   : ok=14   changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+

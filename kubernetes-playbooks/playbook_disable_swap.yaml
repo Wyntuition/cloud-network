@@ -1,0 +1,26 @@
+---
+- name: Disable swap permanently
+  hosts: all
+  become: true
+  tasks:
+    - name: Temporarily disable swap
+      ansible.builtin.command: "swapoff -a"
+
+    - name: Remove swap entries from /etc/fstab
+      ansible.builtin.replace:
+        path: /etc/fstab
+        regexp: '^([^#]*\s+swap\s+)'
+        replace: '# \1'
+      notify: Update fstab
+
+    - name: Disable any active swap units managed by systemd
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        enabled: false
+        state: stopped
+      loop: "{{ ansible_facts.services | select('match', 'swap') | map(attribute='name') | list }}"
+      when: ansible_facts.services is defined
+
+  handlers:
+    - name: Update fstab
+      ansible.builtin.command: "systemctl daemon-reload"

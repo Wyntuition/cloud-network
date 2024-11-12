@@ -1,0 +1,107 @@
+# Explanation of the Playbook
+
+# Here's a playbook that will perform a complete cleanup of Kubernetes from a node, including stopping services, 
+# removing configuration files, and uninstalling packages. This playbook assumes you're running on a standard 
+# setup where Kubernetes was installed using kubeadm and related packages.
+
+#     Stop and disable kubelet: Ensures kubelet is no longer running.
+#     Kill processes on common Kubernetes ports: Frees any ports used by Kubernetes.
+#     Run kubeadm reset: Clears Kubernetes configurations and resets cluster state.
+#     Remove Kubernetes configuration directories: Deletes various directories that Kubernetes uses.
+#     Uninstall Kubernetes packages: Removes kubelet, kubeadm, and kubectl packages.
+#     Remove CNI configurations: Deletes network configuration files used by the CNI plugin.
+#     Flush iptables rules: Clears out any iptables rules set up by Kubernetes networking.
+#     Clean up Docker: Stops and removes any Docker containers and images used by Kubernetes.
+#     Remove Kubernetes logs: Deletes logs specific to Kubernetes.
+#     Reload systemd daemon: Ensures systemd is in sync after disabling services.
+
+# This playbook should fully remove Kubernetes and clean up all related files and configurations. After running it, the node should be free of any Kubernetes components, allowing for a clean reinstallation if needed.
+---
+# Apply to master and workers
+- hosts: CloudVMs
+  remote_user: "{{ cloud_user }}"
+  become: true
+  tasks:
+    - name: Enable IPv4 for Kubernetes
+      sysctl:
+        name: net.ipv4.ip_forward
+        value: 1
+        state: present
+        reload: yes
+
+- hosts: master
+  remote_user: "{{ cloud_user }}"
+  become: yes
+  gather_facts: yes
+  tasks:
+    # Run these 2 if needing to re-run kubeadm init
+    - name: Stop kubelet service
+      service:
+        name: kubelet
+        state: stopped
+
+    - name: Disable kubelet service
+      service:
+        name: kubelet
+        enabled: no
+
+    - name: Kill processes using Kubernetes ports
+      shell: |
+        for port in 10250 10259 10257; do
+          fuser -k $port/tcp || true
+        done
+
+    - name: Reset Kubernetes state on the node
+      command: kubeadm reset -f
+
+    - name: Remove old Kubernetes configuration files
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /etc/kubernetes
+        - /var/lib/etcd
+    
+    - name: Check if Kubernetes master is already initialized
+      stat:  # The stat module checks if /etc/kubernetes/admin.conf exists and registers the result as kubeadm_init_file.
+        path: /etc/kubernetes/admin.conf
+      register: kubeadm_init_file
+
+    - name: Initialize Kubernetes master
+      shell: |
+        kubeadm init --pod-network-cidr=10.244.0.0/16 | tee kubeadm-init.txt
+      register: kubeadm_init
+      # ignore_errors: yes
+      when: ansible_facts['distribution_version'] is version('1.23', '>=')
+            and not kubeadm_init_file.stat.exists
+      failed_when: kubeadm_init.rc != 0 and "'kubeadm init' is already in progress" not in kubeadm_init.stderr
+
+    - name: Set up kubectl for the current user
+      shell: |
+        mkdir -p $HOME/.kube
+        cp /etc/kubernetes/admin.conf $HOME/.kube/config
+        chown $(id -u):$(id -g) $HOME/.kube/config
+
+    - name: Install Calico network plugin
+      command: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+      # when: "'calico' in kubeadm_output.stdout"
+
+    - name: Debug kubeadm init output on master
+      debug:
+        var: kubeadm_init
+      # when: ansible_host == groups['master']
+
+    - name: Get join command
+      shell: tail -n 2 kubeadm-init.txt | tr -d '\\\t' | tr '\n' ' '
+      register: join_command
+
+    - name: Debug join command
+      debug:
+        var: join_command.stdout
+
+- hosts: workers
+  remote_user: "{{ cloud_user }}"
+  become: yes
+  tasks:
+    - name: Join worker nodes to the cluster
+      command: "{{ hostvars['team5a-1'].join_command.stdout }}"

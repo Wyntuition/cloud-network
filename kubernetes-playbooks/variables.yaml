@@ -1,0 +1,31 @@
+#
+# Author: Aniruddha Gokhale
+# CS4287/5287 Principles of Cloud Computing
+# Created: Fall 2024
+#
+# Purpose: 
+#    This yaml file declares the different variables. It uses
+#    a Python dictionary syntax
+#
+local_user: wyn
+
+cloud_user: cc  # user on chameleon VMs is cc
+
+# Prefix to use for naming the VMs
+vm_name_prefix: "team5a"
+
+# Flavor of the VM (VM size)
+vm_flavor: "m1.medium"
+# Image ID or name to use for the VM
+vm_image: "CC-Ubuntu22.04"
+# Network to attach the VMs to
+vm_network: "CH-822922-net"
+# SSH keypair to use for accessing the VMs
+vm_keypair: "team5kp"
+# Number of VMs to create
+vm_count: 4
+# Timeout in seconds for the VM creation process
+vm_creation_timeout: 600
+cloud: CH-822922
+
+...

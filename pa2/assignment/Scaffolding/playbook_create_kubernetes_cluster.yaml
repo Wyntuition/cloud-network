@@ -1,4 +1,5 @@
 ---
+# Apply to master and workers
 - hosts: CloudVMs
   remote_user: "{{ cloud_user }}" # since this play operates on the cloud
                                   # VMs, the user on those VMs is the
@@ -14,7 +15,7 @@
 #   remote_user: "{{ cloud_user }}" # since this play operates on the cloud
 #                                   # VMs, the user on those VMs is the
 #                                   # cloud_user variable
-#   become: yes
+#   become: true
 #   tasks:
     # - name: Initialize Kubernetes master
     #   command: kubeadm init --pod-network-cidr=10.244.0.0/16
@@ -36,7 +37,7 @@
 #   remote_user: "{{ cloud_user }}" # since this play operates on the cloud
 #                                   # VMs, the user on those VMs is the
 #                                   # cloud_user variable
-#   become: yes
+#   become: true
 #   tasks:
 #     - name: Join worker nodes to the cluster
 #       command: "{{ hostvars['master']['kubeadm_output']['stdout_lines'][0] }}"

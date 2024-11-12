@@ -1,0 +1,20 @@
+---
+- name: "Ensure UFW (Uncomplicated Firewall) is installed"
+  apt:
+    name: ufw
+    state: present
+    update_cache: yes
+
+- name: "Ensure UFW is started"
+  ufw:
+    state: enabled
+    policy: allow
+
+- name: "Allow Kafka port in UFW"
+  ufw:
+    rule: allow
+    port: 9092
+    proto: tcp
+
+- name: "Reload UFW to apply changes"
+  command: ufw reload

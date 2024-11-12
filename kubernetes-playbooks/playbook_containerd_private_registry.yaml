@@ -1,0 +1,95 @@
+- name: Install and configure containerd with private image registry
+  hosts: CloudVMs
+  remote_user: "{{ cloud_user }}" # since this play operates on the cloud
+                                # VMs, the user on those VMs is the
+                                # cloud_user variable
+  become: true
+  tasks:
+    # Handled in install_docker child playbook, but useful for cleanup when testing
+    # - name: Remove conflicting package containerd.io if it exists
+    #   ansible.builtin.apt:
+    #     name: containerd.io
+    #     state: absent
+    # - name: Remove docker-ce package
+    #   ansible.builtin.apt:
+    #     name: docker-ce
+    #     state: absent
+    #     purge: yes  # This will remove configuration files as well
+    # - name: Remove docker-io package
+    #   ansible.builtin.apt:
+    #     name: docker-io
+    #     state: absent
+    #     purge: yes  # This will remove configuration files as well
+    # - name: Ensure Docker is installed (for private registry)
+    #   ansible.builtin.apt:
+    #     name: docker-ce
+    #     state: present
+    #     update_cache: true
+    # - name: Ensure containerd is installed
+    #   ansible.builtin.apt:
+    #     name: containerd.io
+    #     state: latest
+    #     update_cache: true
+    - name: Generate containerd default config
+      ansible.builtin.command: "containerd config default"
+      register: containerd_default_config
+    - name: Configure containerd with SystemdCgroup=true and private registry
+      ansible.builtin.copy:
+        dest: /etc/containerd/config.toml
+        content: |
+          {{ containerd_default_config.stdout |
+             regex_replace('SystemdCgroup = false', 'SystemdCgroup = true') |
+             regex_replace('sandbox_image = "registry.k8s.io/pause:3.8"', 'sandbox_image = "registry.k8s.io/pause:3.10"') |
+             regex_replace('config_path = ""', 'config_path = "/etc/containerd/certs.d/localhost:5000"') }}
+      notify: restart containerd
+    - name: Start private Docker registry
+      ansible.builtin.docker_container:
+        name: private_registry
+        image: registry:2
+        state: started
+        restart_policy: always
+        published_ports:
+          - "5000:5000"
+        volumes:
+          - /opt/registry/data:/var/lib/registry
+    - name: Configure containerd to allow insecure registry (localhost:5000)
+      ansible.builtin.file:
+        path: /etc/containerd/certs.d/localhost:5000
+        state: directory
+      notify: restart containerd
+    # - name: Create TLS certificate for the private registry (optional for security)
+    #   ansible.builtin.openssl_certificate:
+    #     path: /etc/containerd/certs.d/localhost:5000/ca.crt
+    #     # Details for certificate creation go here (optional step for non-production)
+    # todo - prod way to secure the registry?
+    - name: Create Docker daemon.json for configuration to allow insecure registry
+      ansible.builtin.copy:
+        dest: /etc/docker/daemon.json
+        content: |
+          {
+            "exec-opts": ["native.cgroupdriver=systemd"],
+            "log-driver": "json-file",
+            "log-opts": {
+              "max-size": "100m"
+            },
+            "storage-driver": "overlay2",
+            "insecure-registries": ["192.168.1.15:5000"]
+          }
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - restart docker
+      
+  handlers:
+    - name: restart containerd
+      ansible.builtin.systemd:
+        name: containerd
+        state: restarted
+        enabled: true
+
+    - name: restart docker
+      ansible.builtin.systemd:
+        name: docker
+        state: restarted
+        enabled: true

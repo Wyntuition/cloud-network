@@ -1,0 +1,24 @@
+---
+- name: "Gather facts about the VMs"
+  openstack.cloud.server_info:
+    cloud: "{{ cloud }}"
+    name: "{{ vm_name_prefix }}-{{ item }}"
+  loop: "{{ range(1, vm_count + 1) }}"
+  register: vm_facts
+
+- name: "Display private IP addresses of the VMs"
+  debug:
+    msg: "VM {{ item.servers[0].name }} has private IP {{ item.servers[0].addresses['CH-822922-net'][0].addr }}"
+  loop: "{{ vm_facts.results }}"
+
+- name: "Get current working directory"
+  command: pwd
+  register: current_dir
+
+- name: "Update [CloudVMs] section in inventory.ini"
+  ini_file:
+    path: "{{ current_dir.stdout }}/inventory.ini"
+    section: CloudVMs
+    option: "{{ item.servers[0].name }}"
+    value: "ansible_host={{ item.servers[0].addresses['CH-822922-net'][0].addr }}"
+  loop: "{{ vm_facts.results }}"

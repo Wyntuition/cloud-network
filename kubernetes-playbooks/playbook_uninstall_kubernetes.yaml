@@ -1,0 +1,71 @@
+- hosts: all  # Adjust this to target the nodes you want to clean
+  become: yes
+  tasks:
+    - name: Stop and disable kubelet service
+      service:
+        name: kubelet
+        state: stopped
+        enabled: no
+
+    - name: Kill any processes using Kubernetes-related ports
+      shell: |
+        for port in 10250 10259 10257; do
+          fuser -k $port/tcp || true
+        done
+      ignore_errors: true
+
+    - name: Reset Kubernetes state on the node
+      command: kubeadm reset -f
+      ignore_errors: true
+
+    - name: Remove Kubernetes configuration directories
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /etc/kubernetes
+        - /var/lib/etcd
+        - /var/lib/kubelet
+        - /var/lib/dockershim
+        - /var/run/kubernetes
+        - /etc/cni
+        - /opt/cni
+        - /usr/local/bin/kubectl
+        - /usr/local/bin/kubeadm
+        - /usr/local/bin/kubelet
+
+    - name: Uninstall Kubernetes packages
+      package:
+        name: "{{ item }}"
+        state: absent
+      loop:
+        - kubelet
+        - kubeadm
+        - kubectl
+
+    - name: Remove CNI network configuration files
+      file:
+        path: /etc/cni/net.d
+        state: absent
+
+    - name: Remove iptables rules left by Kubernetes
+      shell: iptables -F && iptables -X
+      ignore_errors: true
+
+    - name: Clean up any leftover Docker containers and images
+      shell: |
+        docker rm -f $(docker ps -a -q) || true
+        docker rmi -f $(docker images -q) || true
+      ignore_errors: true
+
+    - name: Clean up Kubernetes logs
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /var/log/pods
+        - /var/log/kubelet
+
+    - name: Reload systemd daemon
+      command: systemctl daemon-reload
+      ignore_errors: true

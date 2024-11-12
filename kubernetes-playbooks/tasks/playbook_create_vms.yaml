@@ -1,0 +1,25 @@
+---
+- name: "Create VMs on Chameleon Cloud"
+  openstack.cloud.server:
+    cloud: "{{ cloud }}"
+    name: "{{ vm_name_prefix }}-{{ item }}"
+    flavor: "{{ vm_flavor }}"
+    image: "{{ vm_image }}"
+    network: "{{ vm_network }}"
+    key_name: "{{ vm_keypair }}"
+    security_groups:
+      - "default"
+      - "ENABLE_HTTP_HTTPS"
+      - "ENABLE_SSH"
+      - "ENABLE_ICMP"
+      - "ENABLE_ZMQ_APPS"
+      - "ENABLE_ZOOKEEPER"
+    auto_ip: yes
+    wait: yes
+    timeout: 600
+  loop: "{{ range(1, vm_count + 1) }}"
+  register: created_vms
+
+- name: "Display VM details"
+  debug:
+    var: created_vms
