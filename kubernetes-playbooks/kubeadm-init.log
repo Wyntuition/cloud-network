@@ -174,5 +174,28 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 
 Then you can join any number of worker nodes by running the following on each as root:
 
-kubeadm join 192.168.5.15:6443 --token 54811f.l33m0grqpoh64o8y \
-        --discovery-token-ca-cert-hash sha256:0ec9fe722d6f463ef30a588932890604184a2deeefbbd111bd917205eb56c93e 
+kubeadm join 192.168.5.15:6443 --token 04rggp.33kbcea4bmpvjca4 --discovery-token-ca-cert-hash sha256:ccff61279e378346f2a2238f94bce932a630eb04be097163f7fee05fb4a4b063
+
+
+
+
+### Workers
+
+cc@team5a-3:~$ sudo kubeadm join 192.168.5.15:6443 --token 04rggp.33kbcea4bmpvjca4 --discovery-token-ca-cert-hash sha256:ccff61279e378346f2a2238f94bce932a630eb04be097163f7fee
+05fb4a4b063
+[preflight] Running pre-flight checks
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Starting the kubelet
+[kubelet-check] Waiting for a healthy kubelet at http://127.0.0.1:10248/healthz. This can take up to 4m0s
+[kubelet-check] The kubelet is healthy after 503.706106ms
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
+
