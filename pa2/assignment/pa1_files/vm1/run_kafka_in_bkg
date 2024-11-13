@@ -1,0 +1,13 @@
+#!/bin/bash
+
+ZOOKEEPER_START_CMD="kafka_2.13-3.7.1/bin/zkServer.sh start"
+KAFKA_START_CMD="kafka_2.13-3.7.1/bin/kafka-server-start.sh /path/to/kafka/config/server.properties"
+
+# Create a new tmux session and start Zookeeper in it
+tmux new-session -d -s zookeeper "./run_zookeeper"
+echo "Zookeeper started in tmux session 'zookeeper'"
+
+# Create a new tmux session and start Kafka in it
+tmux new-session -d -s kafka "run_kafka"
+echo "Kafka started in tmux session 'kafka'"
+

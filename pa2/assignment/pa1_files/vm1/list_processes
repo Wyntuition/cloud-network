@@ -1,0 +1,1 @@
+ps -aeo pid,user,args | grep -E 'java|zookeeper|kafka'

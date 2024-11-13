@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Function to kill a process by name
+kill_process() {
+    local process_name=$1
+    echo "Killing process: $process_name"
+    # Find and kill the process
+    pkill -f "$process_name"
+    if [ $? -eq 0 ]; then
+        echo "$process_name processes terminated successfully."
+    else
+        echo "No $process_name processes found."
+    fi
+}
+
+# Kill ZooKeeper
+kill_process "zookeeper"
+
+# Kill Kafka Broker
+kill_process "kafka"
+
+echo "All specified processes have been terminated."
+
