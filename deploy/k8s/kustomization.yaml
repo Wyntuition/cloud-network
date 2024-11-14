@@ -5,7 +5,7 @@ resources:
   - kafka.yaml
   - mongo.yaml
   - consumer-job.yaml
-  - ml-inference-service.yaml
+  - ml-server.yaml
   - producer-job.yaml
 
 # (Optional) Configuration customization
