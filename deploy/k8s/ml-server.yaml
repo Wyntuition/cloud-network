@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ml_server
+  name: ml-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ml_server
+      app: ml-server
   template:
     metadata:
       labels:
-        app: ml_server
+        app: ml-server
     spec:
       containers:
-        - name: ml_server
-          image: 192.168.1.15:5000/ml_server:latest  # Pulls from local registry
+        - name: ml-server
+          image: 192.168.1.15:5000/ml-server:latest  # Pulls from local registry
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -29,10 +29,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ml_server
+  name: ml-server
 spec:
   ports:
     - port: 8080
       targetPort: 8080
   selector:
-    app: ml_server
+    app: ml-server
