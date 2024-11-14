@@ -12,4 +12,4 @@ for dir in */; do
         sudo docker tag "$image_name" "$registry_url/$image_name"
         sudo docker push "$registry_url/$image_name"
     fi
-done
+doneps 

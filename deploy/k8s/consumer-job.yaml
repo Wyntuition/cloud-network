@@ -17,7 +17,7 @@ spec:
         - name: KAFKA_BROKER
           value: "kafka:9092"
         - name: ML_INFERENCE_SERVICE
-          value: "ml_server:80"
+          value: "ml-server:80"
         - name: DATABASE_SERVICE
           value: "mongo:27017"
       restartPolicy: Never
