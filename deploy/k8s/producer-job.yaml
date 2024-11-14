@@ -1,9 +1,8 @@
-# producer-job.yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: producer-job
-  namespace: default  # Using 'default' unless your team is using a different namespace
+  namespace: default
 spec:
   template:
     metadata:
@@ -12,11 +11,11 @@ spec:
     spec:
       containers:
       - name: producer
-        image: team5a/producer:latest  # Replace with your actual image name
+        image: 192.168.1.15:5000/producer:latest
         imagePullPolicy: IfNotPresent
         env:
         - name: KAFKA_BROKER
-          value: "kafka-service:9092"  # Expected Kafka service name and port
+          value: "kafka:9092"
         - name: PRODUCER_ID
           valueFrom:
             fieldRef:
