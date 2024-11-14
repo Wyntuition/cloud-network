@@ -1,0 +1,41 @@
+---
+# Consumer App Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer
+  template:
+    metadata:
+      labels:
+        app: consumer
+    spec:
+      containers:
+        - name: consumer
+          image: 192.168.1.15:5000/consumer:latest  # Pulls from local registry
+          ports:
+            - containerPort: 8080
+          env:
+            - name: KAFKA_BROKER
+              value: "kafka:9092"
+            - name: MONGO_URI
+              value: "mongodb://admin:password@mongodb:27017"
+      imagePullSecrets:
+        - name: local-registry-secret  # Ensure this matches your local registry secret if necessary
+
+---
+# Consumer Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: consumer
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: consumer
