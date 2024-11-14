@@ -8,10 +8,6 @@ resources:
   - ml-inference-service.yaml
   - producer-job.yaml
 
-# (Optional) Common labels to add to all resources
-commonLabels:
-  app: ml-app
-
 # (Optional) Configuration customization
 # You can add other configurations such as patches, config maps, and secrets here
 # patchesStrategicMerge:
