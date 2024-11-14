@@ -1,11 +1,10 @@
 {
-    "exec-opts": ["native.cgroupdriver=systemd"],
-    "storage-driver": "overlay2",
-    "insecure-registries" : [
-        "192.168.1.15:5000"
+    "exec-opts": [
+        "native.cgroupdriver=systemd"
     ],
-    "registry-mirrors" : [
-        "http://192.168.1.200:5000"
+    "storage-driver": "overlay2",
+    "insecure-registries": [
+        "192.168.5.15:5000"
     ],
     "log-driver": "json-file",
     "log-opts": {
