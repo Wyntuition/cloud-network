@@ -57,6 +57,7 @@
         path: /etc/containerd/certs.d/localhost:5000
         state: directory
       notify: restart containerd
+    #   TODO
     # - name: Create TLS certificate for the private registry (optional for security)
     #   ansible.builtin.openssl_certificate:
     #     path: /etc/containerd/certs.d/localhost:5000/ca.crt
