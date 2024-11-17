@@ -1,6 +1,6 @@
 #!/bin/bash
 
-registry_url="192.168.5.15:5000"
+registry_url="192.168.5.169:5000"
 
 # For each subdirectory, go in and run docker tag and docker push using the registry_url
 for dir in */; do

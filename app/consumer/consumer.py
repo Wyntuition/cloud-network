@@ -4,13 +4,15 @@ from kafka import KafkaConsumer  # consumer of events
 import json 
 import pymongo 
 
-consumer = KafkaConsumer (bootstrap_servers="192.168.5.221:9092")
+
+print("v0.1 Kakfa and Mongo starting... ")
+# consumer = KafkaConsumer (bootstrap_servers="192.168.5.221:9092")
+kafka_bootstrap_servers = os.getenv('KAFKA_BROKER', 'kafka:9092')
 
 consumer.subscribe (topics=["test"])
 
-myclient = pymongo.MongoClient("mongodb://192.168.5.143:27017/")
+myclient = pymongo.MongoClient("mongodb://mongodb:27017/")
 myclient.server_info()
-
 
 mydb = myclient["team5_vm3_db"]
 mycol = mydb["images"]
