@@ -4,7 +4,7 @@ from kafka import KafkaConsumer  # consumer of events
 import json 
 import pymongo 
 
-consumer = KafkaConsumer (bootstrap_servers="192.168.5.221:9092")
+consumer = KafkaConsumer (bootstrap_servers="kafka:9092")
 
 consumer.subscribe (topics=["test"])
 

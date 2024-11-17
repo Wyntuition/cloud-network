@@ -34,7 +34,7 @@ except Exception as e:
     model = None
 
 # Kafka configuration
-KAFKA_BROKER = '192.168.5.221:9092'
+KAFKA_BROKER = 'kafka:9092'
 INPUT_TOPIC = 'test'
 OUTPUT_TOPIC = 'ml_predictions'
 
