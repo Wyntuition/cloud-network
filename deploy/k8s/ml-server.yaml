@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: ml-server
-          image: 192.168.5.169:5000/ml-server:latest  # Pulls from local registry
+          image: 192.168.5.169:5000/ml-server:v0.1  # Pulls from local v0.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080

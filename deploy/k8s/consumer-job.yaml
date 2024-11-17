@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: consumer
-        image: 192.168.5.169:5000/consumer:latest
+        image: 192.168.5.169:5000/consumer:v0.1
         imagePullPolicy: IfNotPresent
         env:
         - name: KAFKA_BROKER

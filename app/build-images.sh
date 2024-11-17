@@ -11,7 +11,7 @@ sudo docker build -t consumer .
 sudo docker tag consumer 192.168.5.169:5000/consumer:$TAG
 sudo docker push  192.168.5.169:5000/consumer:$TAG
 
-CD ../ml-server
+cd ../ml-server
 sudo docker build -t ml-server .
 sudo docker tag ml-server 192.168.5.169:5000/ml-server:$TAG
 sudo docker push  192.168.5.169:5000/ml-server:$TAG
