@@ -1,49 +1,62 @@
-import os   # need this for popen
-import time # for sleep
-from kafka import KafkaConsumer  # consumer of events
+import os
+import time
+from kafka import KafkaConsumer
 import json 
 import pymongo 
+import logging
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-print("v0.1 Kakfa and Mongo starting... ")
-# consumer = KafkaConsumer (bootstrap_servers="192.168.5.221:9092")
-kafka_bootstrap_servers = os.getenv('KAFKA_BROKER', 'kafka:9092')
+def main():
+    try:
+        logger.info("Starting consumer service...")
+        
+        kafka_bootstrap_servers = os.getenv('KAFKA_BROKER', 'kafka:9092')
+        mongo_uri = os.getenv('MONGO_URI', 'mongodb://mongodb:27017/')
+        
+        logger.info(f"Connecting to Kafka at {kafka_bootstrap_servers}")
+        consumer = KafkaConsumer(
+            'test',
+            bootstrap_servers=kafka_bootstrap_servers,
+            auto_offset_reset='earliest',
+            group_id='consumer_group',
+            value_deserializer=lambda x: x.decode('utf-8')
+        )
+        
+        logger.info("Successfully connected to Kafka")
 
-consumer.subscribe (topics=["test"])
+        logger.info(f"Connecting to MongoDB at {mongo_uri}")
+        myclient = pymongo.MongoClient(mongo_uri)
+        myclient.server_info()
+        mydb = myclient["team5_vm3_db"]
+        mycol = mydb["images"]
+        logger.info("Successfully connected to MongoDB")
 
-myclient = pymongo.MongoClient("mongodb://mongodb:27017/")
-myclient.server_info()
+        logger.info("Starting message processing loop...")
+        for msg in consumer:
+            try:
+                json_object = json.loads(msg.value)
+                json_object["inferedValue"] = ""
+                msg_id = json_object['id']
+                
+                mycol.insert_one(json_object)
+                logger.info(f"Inserted message with ID: {msg_id}")
+                
+                retrieved_document = mycol.find_one({"id": msg_id})
+                if retrieved_document: 
+                    logger.info(f"Verified document: {retrieved_document['id']}")
+                else:
+                    logger.warning(f"Document not found after insertion: {msg_id}")
+                    
+            except Exception as e:
+                logger.error(f"Error processing message: {e}")
 
-mydb = myclient["team5_vm3_db"]
-mycol = mydb["images"]
+    except Exception as e:
+        logger.error(f"Fatal error in consumer: {e}")
+    finally:
+        consumer.close()
+        logger.info("Consumer service stopped")
 
-
-for msg in consumer:
-    
-    json_string = str(msg.value, 'ascii')
-
-    json_object = json.loads(json_string)
-    
-    json_object2dict = eval(json_object)
-    
-    json_object2dict["inferedValue"] = ""
-
-    msg_id = json_object2dict['id']
-
-    mycol.insert_one(json_object2dict)
-
-    retrieved_document = mycol.find_one({"id": msg_id})
-    if retrieved_document: 
-        print("Inserted Document:", retrieved_document['id'])
-    else:
-        print("Not found!!")
-
-
-consumer.close ()
-    
-
-
-
-
-
-
+if __name__ == "__main__":
+    main()

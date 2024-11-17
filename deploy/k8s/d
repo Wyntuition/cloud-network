@@ -1,0 +1,5 @@
+sudo kubectl delete job consumer-job
+sudo kubectl delete job producer-job
+
+sudo kubectl apply -f consumer-job.yaml
+sudo kubectl apply -f producer-job.yaml

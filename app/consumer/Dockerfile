@@ -1,20 +1,14 @@
-# Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
-# Set environment variables
 ENV PYTHONUNBUFFERED=1
+ENV KAFKA_BROKER=kafka:9092
+ENV MONGO_URI=mongodb://mongodb:27017/
 
-# Set working directory
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
-
-# Install any needed packages specified in requirements.txt
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Define environment variable for Kafka broker
-ENV KAFKA_BROKER=kafka:9092
+COPY . /app
 
-# Run the consumer script
 CMD ["python", "consumer.py"]
