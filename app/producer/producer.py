@@ -41,11 +41,9 @@ def consumer_thread_function(bootstrap_servers, consumer_topic):
 
 def main():
     # Kafka configuration
-    bootstrap_servers = os.getenv('KAKFA_BROKER', 'kafka:9092')
+    bootstrap_servers = "kafka:9092"
     producer_topic = "test"
     consumer_topic = "inference_result"
-                                                                                                                                                                    
-    print(f"Using Kafka bootstrap servers: {bootstrap_servers}")
 
     # Initialize Kafka Producer
     producer = KafkaProducer(

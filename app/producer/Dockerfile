@@ -12,5 +12,7 @@ COPY . /app
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+ADD data_batch_1 /app/data_batch_1
+
 # Define the default command
-CMD ["python", "producer.py"]
+CMD ["python", "producer.py", "data_batch_1"]
