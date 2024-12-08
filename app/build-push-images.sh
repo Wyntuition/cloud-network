@@ -1,4 +1,4 @@
-TAG=v0.4
+TAG=v0.5
 
 echo "Building and pushing images to registry for tag: $TAG"
 
