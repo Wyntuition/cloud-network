@@ -50,7 +50,7 @@ def main():
             request_timeout_ms=5000,
             max_block_ms=5000
         )
-        print("Successfully connected to Kafka to topic ", producer.topic)
+        print("Successfully connected to Kafka to topic ", producer_topic)
 
         data_file = '/app/data_file.pkl'
         print(f"Opening data file: {data_file}")
