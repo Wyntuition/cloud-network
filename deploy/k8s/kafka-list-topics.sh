@@ -1,0 +1,1 @@
+kubectl exec -it kafka-client -- kafka-topics --bootstrap-server kafka:9092 --list
