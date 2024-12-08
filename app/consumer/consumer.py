@@ -26,12 +26,12 @@ def main():
             enable_auto_commit=True,
             group_id='simple_consumer',
             value_deserializer=lambda v: json.loads(v.decode('utf-8')),
-            security_protocol="PLAINTEXT"
+            security_protocol="PLAINTEXT",
             session_timeout_ms=session_timeout_ms,
             heartbeat_interval_ms=heartbeat_interval_ms
         )
         print("Successfully connected to Kafka")
-        
+            
         print(f"Connecting to MongoDB at {mongo_uri}")
         myclient = pymongo.MongoClient(mongo_uri)
         myclient.server_info()

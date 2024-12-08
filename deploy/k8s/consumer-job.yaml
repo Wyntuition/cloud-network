@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   parallelism: 5    # Run 5 pods in parallel
-  completions: 5    # Require 5 successful completions
+  # completions: 5    # Require 5 successful completions
   template:
     metadata:
       labels:
@@ -22,4 +22,12 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        - name: ML_INFERENCE_SERVICE
+          value: "ml-server:80"
+        - name: MONGO_URI
+          value: "mongodb://mongodb:27017/"
+        - name: SESSION_TIMEOUT_MS
+          value: "30000"  # 30 seconds
+        - name: HEARTBEAT_INTERVAL_MS
+          value: "10000"  # 10 seconds
       restartPolicy: Never
