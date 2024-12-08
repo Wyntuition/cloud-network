@@ -11,8 +11,8 @@ spec:
     spec:
       containers:
       - name: consumer
-        image: 192.168.5.169:5000/consumer:v0.1
-        imagePullPolicy: IfNotPresent
+        image: 192.168.5.169:5000/consumer:v0.2
+        imagePullPolicy: Always
         env:
         - name: KAFKA_BROKER
           value: "kafka:9092"
@@ -24,4 +24,7 @@ spec:
           value: "30000"  # 30 seconds
         - name: HEARTBEAT_INTERVAL_MS
           value: "10000"  # 10 seconds
+      restartPolicy: Never
+        - name: MONGO_URI
+          value: "mongodb://mongodb:27017/"
       restartPolicy: Never
