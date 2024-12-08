@@ -4,8 +4,6 @@ metadata:
   name: consumer-job
   namespace: default
 spec:
-  parallelism: 5    # Run 5 pods in parallel
-  completions: 5    # Require 5 successful completions
   template:
     metadata:
       labels:
@@ -18,8 +16,12 @@ spec:
         env:
         - name: KAFKA_BROKER
           value: "kafka:9092"
-        - name: PRODUCER_ID
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
+        - name: ML_INFERENCE_SERVICE
+          value: "ml-server:80"
+        - name: SESSION_TIMEOUT_MS
+          value: "30000"  # 30 seconds
+        - name: HEARTBEAT_INTERVAL_MS
+          value: "10000"  # 10 seconds
+        - name: MONGO_URI
+          value: "mongodb://mongodb:27017/"
       restartPolicy: Never
