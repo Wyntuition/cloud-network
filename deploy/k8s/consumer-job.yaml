@@ -11,13 +11,11 @@ spec:
     spec:
       containers:
       - name: consumer
-        image: 192.168.5.169:5000/consumer:v0.1
-        imagePullPolicy: IfNotPresent
+        image: 192.168.5.169:5000/consumer:v0.2
+        imagePullPolicy: Always
         env:
         - name: KAFKA_BROKER
           value: "kafka:9092"
-        - name: ML_INFERENCE_SERVICE
-          value: "ml-server:80"
-        - name: DATABASE_SERVICE
-          value: "mongo:27017"
+        - name: MONGO_URI
+          value: "mongodb://mongodb:27017/"
       restartPolicy: Never

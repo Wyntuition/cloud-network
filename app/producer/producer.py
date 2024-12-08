@@ -43,15 +43,13 @@ def main():
 
         producer = KafkaProducer(
             bootstrap_servers=bootstrap_servers,
-            value_serializer=lambda v: json.dumps(v).encode('utf-8')
+            value_serializer=lambda v: json.dumps(v).encode('utf-8'),
+            security_protocol="PLAINTEXT",
+            api_version_auto_timeout_ms=5000,
+            request_timeout_ms=5000,
+            max_block_ms=5000
         )
-
-        consumer_thread = threading.Thread(
-            target=consumer_thread_function,
-            args=(bootstrap_servers, consumer_topic),
-            daemon=True
-        )
-        consumer_thread.start()
+        print("Successfully connected to Kafka")
 
         data_file = '/app/data_file.pkl'
         print(f"Opening data file: {data_file}")
@@ -65,10 +63,10 @@ def main():
         for index in range(len(data)):
             data_string = ",".join(str(x) for x in data[index])
             msg_id = str(uuid.uuid4())
-            
+
             json_object = {
                 "id": msg_id,
-                "ground_truth": labels[index],
+                "ground_truth": int(labels[index]),
                 "data": data_string
             }
 
