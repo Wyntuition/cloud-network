@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: producer-job
+  name: producer-job-p4
   namespace: default
 spec:
   parallelism: 5    # Run 5 pods in parallel
