@@ -3,7 +3,7 @@ TAG=v0.5
 echo "Building and pushing images to registry for tag: $TAG"
 
 cd producer
-sudo docker bq:quild -t producer . 
+sudo docker build -t producer . 
 sudo docker tag producer 192.168.5.169:5000/producer:$TAG
 sudo docker push  192.168.5.169:5000/producer:$TAG
 
