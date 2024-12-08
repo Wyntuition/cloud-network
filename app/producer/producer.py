@@ -22,6 +22,7 @@ def consumer_thread_function(bootstrap_servers, consumer_topic):
         value_deserializer=lambda v: json.loads(v.decode('utf-8'))
     )
 
+    print("Starting consumer thread on topic ", consumer_topic)
     for message in consumer:
         received_time = time.time()
         msg = message.value
@@ -49,7 +50,7 @@ def main():
             request_timeout_ms=5000,
             max_block_ms=5000
         )
-        print("Successfully connected to Kafka")
+        print("Successfully connected to Kafka to topic ", producer.topic)
 
         data_file = '/app/data_file.pkl'
         print(f"Opening data file: {data_file}")
