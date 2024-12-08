@@ -13,6 +13,8 @@ def main():
         logger.info("Starting consumer service...")
         
         kafka_bootstrap_servers = os.getenv('KAFKA_BROKER', 'kafka:9092')
+        session_timeout_ms = int(os.getenv('SESSION_TIMEOUT_MS', '30000'))
+        heartbeat_interval_ms = int(os.getenv('HEARTBEAT_INTERVAL_MS', '10000'))
         mongo_uri = os.getenv('MONGO_URI', 'mongodb://mongodb:27017/')
         
         logger.info(f"Connecting to Kafka at {kafka_bootstrap_servers}")
@@ -21,7 +23,9 @@ def main():
             bootstrap_servers=kafka_bootstrap_servers,
             auto_offset_reset='earliest',
             group_id='consumer_group',
-            value_deserializer=lambda x: x.decode('utf-8')
+            value_deserializer=lambda x: x.decode('utf-8'),
+            session_timeout_ms=session_timeout_ms,
+            heartbeat_interval_ms=heartbeat_interval_ms
         )
         
         logger.info("Successfully connected to Kafka")

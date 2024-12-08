@@ -4,6 +4,8 @@ metadata:
   name: producer-job
   namespace: default
 spec:
+  parallelism: 5    # Run 5 pods in parallel
+  completions: 5    # Require 5 successful completions
   template:
     metadata:
       labels:
@@ -12,7 +14,7 @@ spec:
       containers:
       - name: producer
         image: 192.168.5.169:5000/producer:v0.2
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         env:
         - name: KAFKA_BROKER
           value: "kafka:9092"

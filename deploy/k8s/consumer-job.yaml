@@ -20,4 +20,8 @@ spec:
           value: "ml-server:80"
         - name: DATABASE_SERVICE
           value: "mongo:27017"
+        - name: SESSION_TIMEOUT_MS
+          value: "30000"  # 30 seconds
+        - name: HEARTBEAT_INTERVAL_MS
+          value: "10000"  # 10 seconds
       restartPolicy: Never
