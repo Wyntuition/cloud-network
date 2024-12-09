@@ -32,3 +32,14 @@ Vertical Pod Autoscaling scenarios:
 1. Set up app that requires a lot of resources in the pod, that will need more, setting resource limit
 1. Set up load tester/test script to increase the resource use in the pod, making Kubernetes raise the resource limit
 1. Observe and record metrics of resource use in pod and across cluster, how the limits change when, data processing rate as a result
+
+
+## Steps
+
+1. Install Kubernetes cluster (Kind for local, then via Ansible for real nodes)
+1. Install Kubernetes Metrics Server so things like node and pod resource usage can be gathered with kubectl
+
+HPA
+1. Run `polinux/stress` to [spike CPU to limit in Kubernetes](high-resource-app/stress.yaml)
+1. View activity with `kubectl top pods -A`. View limits on node with `kubectl describe nodes`.
+

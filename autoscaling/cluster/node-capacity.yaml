@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Node
+metadata:
+  name: <node-name>
+status:
+  allocatable:
+    cpu: "500m"
+    memory: "256Mi"
+  capacity:
+    cpu: "500m"
+    memory: "256Mi"
