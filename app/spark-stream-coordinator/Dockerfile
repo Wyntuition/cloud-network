@@ -6,6 +6,9 @@ ENV SPARK_HOME=/opt/spark \
     PATH=$SPARK_HOME/bin:$PATH \
     PYSPARK_PYTHON=python3
 
+# Switch to root for package installation
+USER root
+
 # Install necessary dependencies
 RUN apt-get update && apt-get install -y \
     python3-pip \
@@ -13,9 +16,6 @@ RUN apt-get update && apt-get install -y \
 
 # Copy Python scripts into the image
 WORKDIR /app
-COPY streaming-scripts/ /app/
-
-# Set entrypoint
-COPY spark-docker/entrypoint.sh /app/
+COPY ./ /app/
 RUN chmod +x /app/entrypoint.sh
 ENTRYPOINT ["/app/entrypoint.sh"]
