@@ -73,9 +73,9 @@ declare -A counts
 echo "Processing simulated data..."
 for doc in "${FAKE_DATA[@]}"; do
   # Parse JSON fields using jq-like logic simulation
-  producer_id=$(echo "$doc" | grep -oP '"producer_id": "\K\d+"')
-  image_prediction=$(echo "$doc" | grep -oP '"image_prediction": "\K\d+"')
-  actual_value=$(echo "$doc" | grep -oP '"actual_value": "\K\d+"')
+  producer_id=$(echo "$doc" | jq -r '.producer_id')
+  image_prediction=$(echo "$doc" | jq -r '.image_prediction')
+  actual_value=$(echo "$doc" | jq -r '.actual_value')
 
   # Compare values to simulate logic (image_prediction != actual_value)
   if [ "$image_prediction" != "$actual_value" ]; then
