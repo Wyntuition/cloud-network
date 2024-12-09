@@ -7,13 +7,11 @@ We updated our app to send the inference messages with the producer id, installe
 Then, as extra, we attempted to stream Kafka directly to Spark and process that way.
 
 Primary Data Source: team5_vm3_db.images
-
-    This is where Kafka messages are initially inserted by your consumer application.
-    Schema fields coming from Kafka: id, image_prediction, actual_value, producer_id.
+- This is where Kafka messages are initially inserted by your consumer application.
+- Schema fields coming from Kafka: id, image_prediction, actual_value, producer_id.
 
 Results Storage: team5_vm3_db.incorrect_inference_results
-
-    This is a new MongoDB collection where the results of our incorrect inference calculations (aggregated data) are stored.
+- This is a new MongoDB collection where the results of our incorrect inference calculations (aggregated data) are stored.
 
 
 1. **Initial Schema in the `images` collection**:
@@ -27,7 +25,7 @@ Results Storage: team5_vm3_db.incorrect_inference_results
      }
      ```
 
-2. **Processing Schema Changes**:
+2. **Processing Data**:
    - We calculate if the prediction is incorrect (where `image_prediction != actual_value`) using a derived column (`is_incorrect`) added during Spark's transformation logic.
 
 3. **Result Schema for `incorrect_inference_results`**:
@@ -55,26 +53,21 @@ Results Storage: team5_vm3_db.incorrect_inference_results
 
 Spark is now installed in our Kubernetes cluster via Helm. 
 
+- 
+
 ### Batch job
 
-The code for batch processing the mongo inference data via Spark, is in `app/spark-consumer/spark_batch_consumer.py`
+The code for batch processing the mongo inference data via Spark, is in `app/spark-*`
 
+- [/app/spark-batch-consumer/spark_batch_consumer.py](../app/spark-batch-consumer/spark_batch_consumer.py)
+- [/app/spark-stream-coordinator/spark_stream_coordinator.py](../app/spark-stream-coordinator/spark_stream_coordinator.py)
+- [/app/spark-stream-coordinator/k8s/spark-stream-coordinator.yaml](../app/spark-stream-coordinator/k8s/spark-stream-coordinator.yaml)
 
-```
-
-```
-
-Results of inaccurate count, written to Mongo:
-```
-
-```
-
-
+Results of inaccurate count, written to Mongo.
 
 ### Stream job
 
 We have another python script that connects Spark directly to Kakfa in `app/spark-consumer/spark_stream_consumer.py`
-
 
 Messages from Kafka from the inference engine, saved in Mongo streamed from Kafka into Spark:
 ```
@@ -85,6 +78,8 @@ Messages from Kafka from the inference engine, saved in Mongo streamed from Kafk
   "producer_id": 101
 }
 ...
+
+Results of inaccurate count, written to Mongo.
 
 ## Documentation of effort
 
@@ -99,7 +94,7 @@ Run the job again with a large amount of data
 Record which producer is sending messages
 Install spark
 Use spark in Python to process the results in the DB, to calculate incorrect inferences by producer
-Save output to csv and graph
+Save output 
 
 
 
