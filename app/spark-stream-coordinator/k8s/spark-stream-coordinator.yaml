@@ -15,8 +15,8 @@ spec:
         app: spark-stream-coordinator
     spec:
       containers:
-      - name: 192.168.5.169:5000/spark-stream-coordinator:v0.5
-        image: 
+      - name: spark-stream-coordinator
+        image: 192.168.5.169:5000/spark-stream-coordinator:v0.5
         env:
         - name: KAFKA_BROKER
           value: "kafka:9092"
