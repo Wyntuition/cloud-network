@@ -41,17 +41,32 @@ def main():
         for msg in consumer:
             try:
                 json_object = json.loads(msg.value)
+                
+                # Ensure 'inferedValue' is added
                 json_object["inferedValue"] = ""
-                msg_id = json_object['id']
                 
-                mycol.insert_one(json_object)
-                logger.info(f"Inserted message with ID: {msg_id}")
+                msg_id = json_object.get('id', 'unknown_id')
+                producer_id = json_object.get('producer_id', 'unknown_producer')
                 
+                # Prepare document for MongoDB
+                document = {
+                    "id": msg_id,
+                    "producer_id": producer_id,
+                    "ground_truth": json_object.get('ground_truth', None),
+                    "data": json_object.get('data', ''),
+                    "inferedValue": json_object["inferedValue"]
+                }
+                
+                # Insert into MongoDB
+                mycol.insert_one(document)
+                logger.info(f"Inserted message with ID: {msg_id} from Producer: {producer_id}")
+                
+                # Optional: Verify insertion
                 retrieved_document = mycol.find_one({"id": msg_id})
-                if retrieved_document: 
-                    logger.info(f"Verified document: {retrieved_document['id']}")
+                if retrieved_document:
+                    logger.info(f"Verified document: ID={retrieved_document['id']}, Producer={retrieved_document['producer_id']}")
                 else:
-                    logger.warning(f"Document not found after insertion: {msg_id}")
+                    logger.warning(f"Document not found after insertion: ID={msg_id}")
                     
             except Exception as e:
                 logger.error(f"Error processing message: {e}")
@@ -59,8 +74,9 @@ def main():
     except Exception as e:
         logger.error(f"Fatal error in consumer: {e}")
     finally:
-        consumer.close()
-        logger.info("Consumer service stopped")
+        if 'consumer' in locals():
+            consumer.close()
+            logger.info("Consumer service stopped")
 
 if __name__ == "__main__":
     main()

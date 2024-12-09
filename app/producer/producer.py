@@ -61,12 +61,17 @@ def main():
         data = pic_dict[b'data']
         print(f"Loaded {len(data)} records")
 
+        # Generate or retrieve a unique producer ID
+        producer_id = os.getenv('PRODUCER_ID', str(uuid.uuid4()))
+        print(f"Producer ID: {producer_id}")
+
         for index in range(len(data)):
             data_string = ",".join(str(x) for x in data[index])
             msg_id = str(uuid.uuid4())
 
             json_object = {
                 "id": msg_id,
+                "producer_id": producer_id,  # Added producer_id
                 "ground_truth": int(labels[index]),
                 "data": data_string
             }
