@@ -65,6 +65,10 @@ def main():
         producer_id = os.getenv('PRODUCER_ID', str(uuid.uuid4()))
         print(f"Producer ID: {producer_id}")
 
+        # Start a consumer thread to monitor responses (optional)
+        consumer_thread = threading.Thread(target=consumer_thread_function, args=(bootstrap_servers, consumer_topic))
+        consumer_thread.start()
+
         for index in range(len(data)):
             data_string = ",".join(str(x) for x in data[index])
             msg_id = str(uuid.uuid4())
@@ -83,7 +87,7 @@ def main():
             producer.send(producer_topic, json_object)
             producer.flush()
             print(f"Sent message {index+1}/{len(data)} with ID: {msg_id}")
-            time.sleep(1)
+            time.sleep(1)  # Adjust as needed for your use case
 
         producer.close()
         print("Finished sending messages, waiting for processing...")
