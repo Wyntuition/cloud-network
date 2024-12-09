@@ -4,6 +4,6 @@ metadata:
   name: mongo-client
 spec:
   containers:
-  - name: mongo-client
+  - name: mongoclient
     image: mongodb
     command: ['sleep', '3600']
