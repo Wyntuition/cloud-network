@@ -1,0 +1,1 @@
+sudo kubectl exec kafka-client -- kafka-console-producer --broker-list kafka:9092 --topic test < test_message.txt
