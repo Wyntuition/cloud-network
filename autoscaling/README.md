@@ -9,6 +9,20 @@ Overview:
     - Seeing how Kubernetes changing the pod's resource limits, and changes resourse usage, noticing timing and winodws, nodes placed on, memory usage on the pod and nodes
 - Recording metrics: CPU and memory use on pods and across cluster, request rate, endpoint latency, data processed
 
+HPA vs VPA:
+
+```mermaid
+graph TD
+    A[Scaling Strategies] --> B[VPA: Vertical Scaling]
+    A --> C[HPA: Horizontal Scaling]
+    
+    B --> D[Increases Pod Resources]
+    B --> E[Single Pod Gets More CPU/Memory]
+    
+    C --> F[Adds More Pod Replicas]
+    C --> G[Distributes Load Across Pods]
+```
+
 ## Test Environment
 
 We are using a Kubernetes cluster, developed locally with Kind, and using VMs on Chameleon for scaling up. 
@@ -118,6 +132,8 @@ HPA
     - Memory usage:
         - Average: 28Mi (2.3%)
 
+![Alt text](graph-hpa.png "Effect of HPA")
+
 ## Conclusions
 
 Increasing the  number of pods is appropriate when:
@@ -125,14 +141,21 @@ Increasing the  number of pods is appropriate when:
 - Requests are distributed across multiple instances.
 - Resource limits for a single pod would be exceeded by the load.
 - The application is resilient to distributed state.
+- Examples:
+    - Microservices with variable load
+    - Web applications
+    - Background processing systems
+    - API endpoints
 
 Increasing the resources of a pod is appropriate when:
 - The application is stateful or cannot scale horizontally
 - The pod's workload is growing, but the number of requests is stable
 - Kubernetes detects that resource requests are insufficient for the workload
-
-Plan fopr cooldown periods to prevent thrashing
-
+- Plan fopr cooldown periods to prevent thrashing
+- Consider scaling delays
+- Configure appropriate thresholds
+- Consider potential scaling latency
+- Metrics consideration - scarping frequency, accuracy
 
 ```mermaid
 flowchart TD
