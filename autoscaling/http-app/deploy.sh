@@ -1,7 +1,5 @@
 IMAGE=http-app:latest
 
-docker build -t http-app .
-
 kubectl create deployment http-app --image=$IMAGE
 kubectl expose deployment http-app --type=LoadBalancer --port=8080
 
