@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metrics-server
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      hostNetwork: true  # Add this for Kind
+      serviceAccountName: metrics-server
+      containers:
+      - name: metrics-server
+        args:
+        - --cert-dir=/tmp
+        - --secure-port=4443
+        - --kubelet-preferred-address-types=InternalIP
+        - --kubelet-use-node-status-port
+        - --metric-resolution=15s
+        - --kubelet-insecure-tls
+        volumeMounts:
+        - name: tmp-dir
+          mountPath: /tmp
+      volumes:
+      - name: tmp-dir
+        emptyDir: {}
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule

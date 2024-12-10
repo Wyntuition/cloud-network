@@ -37,9 +37,34 @@ Vertical Pod Autoscaling scenarios:
 ## Steps
 
 1. Install Kubernetes cluster (Kind for local, then via Ansible for real nodes)
+1. Configure node capacity 
 1. Install Kubernetes Metrics Server so things like node and pod resource usage can be gathered with kubectl
 
 HPA
+1. Set resource requests and limits for deployment/pod
+1. Create HPA on deployment with min/max pods
 1. Run `polinux/stress` to [spike CPU to limit in Kubernetes](high-resource-app/stress.yaml)
-1. View activity with `kubectl top pods -A`. View limits on node with `kubectl describe nodes`.
+1. View activity with `kubectl top pods -A`. 
+1. View limits on node with `kubectl describe nodes` and:
+    ```
+    kubectl get nodes -o json | jq '.items[] | {name: .metadata.name, capacity: .status.capacity, allocatable: .status.allocatable}'
+    ```
+
+
+
+
+## Conclusions
+
+Increasing the  number of pods is appropriate when:
+- The application can scale horizontally (e.g., stateless apps).
+- Requests are distributed across multiple instances.
+- Resource limits for a single pod would be exceeded by the load.
+- The application is resilient to distributed state.
+
+Increasing the resources of a pod is appropriate when:
+- The application is stateful or cannot scale horizontally
+- The pod's workload is growing, but the number of requests is stable
+- Kubernetes detects that resource requests are insufficient for the workload
+
+Plan fopr cooldown periods to prevent thrashing
 

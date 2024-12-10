@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: http-app
+  template:
+    metadata:
+      labels:
+        app: http-app
+    spec:
+      containers:
+      - name: http-app
+<<<<<<< HEAD:autoscaling/http-app/k8s/deploy.yaml
+        image: 192.168.5.15:5000/http-app:latest
+=======
+        image: localhost:5000/http-app:latest
+>>>>>>> 9e1c5f3443bf2670bf9dd853a428fb42fda5e4e5:autoscaling/http-app/deploy.yaml
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "64Mi"  
+            cpu: "100m"
+          limits:
+<<<<<<< HEAD:autoscaling/http-app/k8s/deploy.yaml
+            memory: "512Mi"  
+            cpu: "500m"
+=======
+            cpu: "500m"
+            memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: http-app
+spec:
+  selector:
+    app: http-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+>>>>>>> 9e1c5f3443bf2670bf9dd853a428fb42fda5e4e5:autoscaling/http-app/deploy.yaml

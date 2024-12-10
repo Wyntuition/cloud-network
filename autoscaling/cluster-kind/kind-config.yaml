@@ -1,0 +1,26 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+containerdConfigPatches:
+  - |
+    [plugins."io.containerd.grpc.v1.cri".registry.mirrors."localhost:5000"]
+      endpoint = ["http://kind-registry:5000"]
+nodes:
+  - role: control-plane
+    kubeadmConfigPatches:
+      - |
+        kind: ClusterConfiguration
+        apiServer:
+          extraArgs:
+            runtime-config: "api/all=true"
+  - role: worker
+    kubeadmConfigPatches:
+      - |
+        # kind: JoinConfiguration
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            system-reserved: "cpu=500m,memory=256Mi"
+            kube-reserved: "cpu=500m,memory=256Mi"
+    extraMounts:
+      - containerPath: /path/in/container
+        hostPath: /path/on/host
