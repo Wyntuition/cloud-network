@@ -31,5 +31,7 @@ watch -n 2 "kubectl get deployment http-app"
 watch -n 2 "kubectl get hpa"
 # Watch pods with labels
 watch -n 2 "kubectl get pods -l app=http-app"
-# Combined view (horizontal scaling + CPU usage)
-watch -n 2 'echo "=== PODS ==="; kubectl get pods -l app=http-app; echo -e "\n=== HPA ==="; kubectl get hpa; echo -e "\n=== CPU USAGE ==="; kubectl top pods -l app=http-app'
+# Combined view (horizontal scaling + CPU usage, and node metrics)
+watch -n 2 'echo "=== PODS ==="; kubectl get pods -l app=http-app -o wide; echo -e "\n=== HPA ==="; kubectl get hpa; echo -e "\n=== CPU USAGE ==="; kubectl top pods -l app=http-app'
+# Request limits for VPA
+kubectl get pods -l app=http-app -o jsonpath='{range .items[*]}{.metadata.name}{" - CPU: "}{.spec.containers[0].resources.requests.cpu}{" Memory: "}{.spec.containers[0].resources.requests.memory}{"\n"}{end}'

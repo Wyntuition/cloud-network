@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: load-tester
 spec:
-  replicas: 5
+  replicas: 20 # each replica does 1000 requests x 100 workers then completes (~50/s in Kind)
   selector:
     matchLabels:
       app: load-tester

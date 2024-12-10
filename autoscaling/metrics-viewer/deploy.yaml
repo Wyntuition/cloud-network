@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: default
+data:
+  METRICS_URL: "http://http-app:8080/metrics" # Update this if necessary
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metrics-viewer
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: metrics-viewer
+  template:
+    metadata:
+      labels:
+        app: metrics-viewer
+    spec:
+      containers:
+        - name: metrics-viewer
+          image: localhost:5000/metrics-viewer:latest
+          ports:
+            - containerPort: 8081
+          env:
+            - name: METRICS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: METRICS_URL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: metrics-viewer-service
+  namespace: default
+spec:
+  selector:
+    app: metrics-viewer
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+  type: LoadBalancer
