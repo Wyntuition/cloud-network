@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: load-tester
 spec:
-  replicas: 20 # each replica does 1000 requests x 100 workers then completes (~50/s in Kind)
+  replicas: 50 # each replica does 1000 requests x 100 workers then completes (~50 requests/s in Kind)
   selector:
     matchLabels:
       app: load-tester
@@ -19,8 +19,8 @@ spec:
         - containerPort: 8080
         resources:
           requests:
-            cpu: "400m"
+            cpu: "1000m"
             memory: "2280Mi"
           limits:
-            cpu: "500m"
+            cpu: "2000m"
             memory: "2560Mi"

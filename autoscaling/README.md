@@ -105,6 +105,19 @@ HPA
     - Requests per second: `rate(http_requests_total[1m])`
 1. Max requests it can get to, and how fast. Tweaks if needed faster. 
 
+## Observations
+
+- 1 pod at 1 pod at 500m CPU and 25Mi Memory.  
+    - Requests being sent: 
+    - Requests per second:
+        - Average 480
+        - Peak  758
+        - Median 636
+    - CPU usage:
+        - Average 485m (24.7%)
+    - Memory usage:
+        - Average: 28Mi (2.3%)
+
 ## Conclusions
 
 Increasing the  number of pods is appropriate when:
@@ -279,8 +292,7 @@ flowchart TD
     grafana_db --> grafana_ui
 ```
 
-
-I'll create a comprehensive table showing expected requests per second (RPS) based on different CPU and memory limits for a typical Go web application.
+Expected requests per second (RPS) based on different CPU and memory limits for a typical Go web application:
 
 | CPU Limit | Memory Limit | Expected RPS Range | Typical Use Case | Performance Characteristics |
 |-----------|--------------|-------------------|-----------------|----------------------------|
@@ -291,8 +303,6 @@ I'll create a comprehensive table showing expected requests per second (RPS) bas
 | 2000m (2 cores) | 2Gi     | 1000-2000 RPS     | Enterprise-level service | Mission-critical application |
 
 Key Considerations:
-- These are approximate estimates
-- Actual performance varies based on:
   1. Application complexity
   2. Database interactions
   3. External service calls
@@ -305,5 +315,3 @@ Recommendations:
 - Use load testing tools
 - Monitor application performance
 - Scale resources based on actual metrics
-
-Would you like me to elaborate on how to benchmark and optimize your Go application's performance?

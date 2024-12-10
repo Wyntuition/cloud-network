@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: load-tester
+spec:
+  template:
+    metadata:
+      name: load-tester
+    spec:
+      containers:
+      - name: load-tester
+        image: busybox
+        command: ["sh", "-c", "while true; do wget -q -O- http://http-app:8080/ && wget -q -O- http://http-app:8080/stress/cpu?threads=4 && wget -q -O- http://http-app:8080/stress/memory?mb=200; sleep 1; done"]
+      restartPolicy: OnFailure
+  backoffLimit: 4

@@ -66,7 +66,6 @@ func calculateMessagesPerSecond(metrics string) float64 {
 // Parse pod resource usage (CPU & Memory) metrics
 func parsePodResourceUsage(metrics string) {
 	lines := strings.Split(metrics, "\n")
-	fmt.Println("\n(v1) Parsing pod resource usage metrics:")
 
 	for _, line := range lines {
 		if strings.HasPrefix(line, "container_cpu_usage_seconds_total") {
@@ -83,7 +82,7 @@ func parsePodResourceUsage(metrics string) {
 			if len(parts) < 2 {
 				continue
 			}
-			fmt.Println("Container Memory usage:", parts)
+			fmt.Println("Container Mem usage:", parts)
 		}
 	}
 }
@@ -91,7 +90,6 @@ func parsePodResourceUsage(metrics string) {
 // Parse node-level resource usage (CPU/Memory)
 func parseNodeResourceUsage(metrics string) {
 	lines := strings.Split(metrics, "\n")
-	fmt.Println("\nParsing node-level resource usage metrics:")
 
 	for _, line := range lines {
 		if strings.HasPrefix(line, "node_cpu_seconds_total") {
@@ -109,7 +107,7 @@ func parseNodeResourceUsage(metrics string) {
 			if len(parts) < 2 {
 				continue
 			}
-			fmt.Println("Node Memory usage:", parts)
+			fmt.Println("Node Mem usage:", parts)
 		}
 
 		// New parsing for process_cpu_seconds_total
@@ -135,8 +133,6 @@ func main() {
 	}
 
 	for {
-		fmt.Println("\nFetching metrics from:", metricsURL)
-
 		// Fetch metrics
 		metricsResponse, err := fetchMetrics(metricsURL)
 		if err != nil {
@@ -144,7 +140,7 @@ func main() {
 		} else {
 			// Calculate HTTP requests per second
 			rate := calculateMessagesPerSecond(metricsResponse)
-			fmt.Printf("\nRequests per second: %.2f\n", rate)
+			fmt.Printf("\nRPS: %.2f\n", rate)
 
 			// Extract pod CPU/Memory usage
 			parsePodResourceUsage(metricsResponse)
