@@ -18,7 +18,7 @@ spec:
         averageUtilization: 50
   behavior:
     scaleUp:
-      stabilizationWindowSeconds: 10  # seconds delay before scaling up
+      stabilizationWindowSeconds: 30  # seconds delay before scaling up
       policies:
       - type: Percent
         value: 100    # Can double current replicas
@@ -29,7 +29,7 @@ spec:
       selectPolicy: Max  # Choose most aggressive policy
     
     scaleDown:
-      stabilizationWindowSeconds: 30  # seconds delay before scaling down
+      stabilizationWindowSeconds: 45  # seconds delay before scaling down
       policies:
       - type: Percent
         value: 50     # Can reduce by up to 50%
