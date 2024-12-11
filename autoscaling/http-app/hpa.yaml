@@ -1,7 +1,7 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: http-app-hpa
+  name: http-app-hpa2
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
@@ -16,21 +16,25 @@ spec:
       target:
         type: Utilization
         averageUtilization: 50
-  # - type: Resource
-  #   resource:
-  #     name: memory
-  #     target:
-  #       type: Utilization
-  #       averageUtilization: 70
-  # - type: External
-  #   external:
-  #     metricName: request_queue_length
-  #     target:
-  #       type: Value
-  #       value: "50"
-  # - type: External
-  #   external:
-  #     metricName: avg_response_time
-  #     target:
-  #       type: Value
-  #       value: "200ms"
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 30  # seconds delay before scaling up
+      policies:
+      - type: Percent
+        value: 100    # Can double current replicas
+        periodSeconds: 15
+      - type: Pods
+        value: 4      # Or add up to 4 pods
+        periodSeconds: 15
+      selectPolicy: Max  # Choose most aggressive policy
+    
+    scaleDown:
+      stabilizationWindowSeconds: 45  # seconds delay before scaling down
+      policies:
+      - type: Percent
+        value: 50     # Can reduce by up to 50%
+        periodSeconds: 15
+      - type: Pods
+        value: 2      # Or remove up to 2 pods
+        periodSeconds: 15
+      selectPolicy: Min  # Choose most conservative policy
