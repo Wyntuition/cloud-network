@@ -1,0 +1,13 @@
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+spec:
+  updatePolicy:
+    updateMode: "Auto"  # Key configuration
+  resourcePolicy:
+    containerPolicies:
+    - minAllowed:
+        cpu: 50m
+        memory: 50Mi
+      maxAllowed:
+        cpu: 1
+        memory: 500Mi

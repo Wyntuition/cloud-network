@@ -2,12 +2,30 @@
 
 Overview:
 - Running scenarios for HPA and VPA:
-    - Simulate variable request loads to endpoint
+    - Stand up app that can take HTTP requests
+    - Simulate variable request loads to endpoint with a load tester
     - Simulate raising memory usage in pod
-- Observing behavior of pods
-    - See how Kubernetes increases and decreases the number of pods, noticing timing and windows, nodes placed on, CPU and memory use on the pods and nodes
+- Observe effects:
+    - See how Kubernetes increases and decreases the number of pods, 
+    - Timing and windows 
+    - Nodes placed on
+    - CPU and memory use on the pods and nodes
     - Seeing how Kubernetes changing the pod's resource limits, and changes resourse usage, noticing timing and winodws, nodes placed on, memory usage on the pod and nodes
 - Recording metrics: CPU and memory use on pods and across cluster, request rate, endpoint latency, data processed
+
+HPA vs VPA:
+
+```mermaid
+graph TD
+    A[Scaling Strategies] --> B[VPA: Vertical Scaling]
+    A --> C[HPA: Horizontal Scaling]
+    
+    B --> D[Increases Pod Resources]
+    B --> E[Single Pod Gets More CPU/Memory]
+    
+    C --> F[Adds More Pod Replicas]
+    C --> G[Distributes Load Across Pods]
+```
 
 ## Test Environment
 
@@ -105,6 +123,27 @@ HPA
     - Requests per second: `rate(http_requests_total[1m])`
 1. Max requests it can get to, and how fast. Tweaks if needed faster. 
 
+## Observations
+
+- 1 pod at 1 pod at 500m CPU and 25Mi Memory.  1 load tester (~200-800 RPS).
+    - Requests being sent: 
+    - Requests per second:
+        - Average 380
+        - Peak  758
+        - Median 636
+    - CPU usage:
+        - Average 485m (24.7%)
+    - Memory usage:
+        - Average: 28Mi (2.3%)
+- 2 pods, 10 load testers
+    - Requests per second:
+        - Average 436
+        - Peak  3241
+        - Median 711
+
+
+![Alt text](graph-hpa.png "Effect of HPA")
+
 ## Conclusions
 
 Increasing the  number of pods is appropriate when:
@@ -112,14 +151,21 @@ Increasing the  number of pods is appropriate when:
 - Requests are distributed across multiple instances.
 - Resource limits for a single pod would be exceeded by the load.
 - The application is resilient to distributed state.
+- Examples:
+    - Microservices with variable load
+    - Web applications
+    - Background processing systems
+    - API endpoints
 
 Increasing the resources of a pod is appropriate when:
 - The application is stateful or cannot scale horizontally
 - The pod's workload is growing, but the number of requests is stable
 - Kubernetes detects that resource requests are insufficient for the workload
-
-Plan fopr cooldown periods to prevent thrashing
-
+- Plan fopr cooldown periods to prevent thrashing
+- Consider scaling delays
+- Configure appropriate thresholds
+- Consider potential scaling latency
+- Metrics consideration - scarping frequency, accuracy
 
 ```mermaid
 flowchart TD
@@ -279,8 +325,7 @@ flowchart TD
     grafana_db --> grafana_ui
 ```
 
-
-I'll create a comprehensive table showing expected requests per second (RPS) based on different CPU and memory limits for a typical Go web application.
+**Expected requests per second (RPS) based on different CPU and memory limits for a typical Go web application:**
 
 | CPU Limit | Memory Limit | Expected RPS Range | Typical Use Case | Performance Characteristics |
 |-----------|--------------|-------------------|-----------------|----------------------------|
@@ -290,9 +335,28 @@ I'll create a comprehensive table showing expected requests per second (RPS) bas
 | 1000m (1 core) | 1Gi     | 500-1000 RPS      | Heavy traffic service | High-performance API |
 | 2000m (2 cores) | 2Gi     | 1000-2000 RPS     | Enterprise-level service | Mission-critical application |
 
-Key Considerations:
-- These are approximate estimates
-- Actual performance varies based on:
+
+**Typical CPU Limit Ranges**
+
+| Application Type         | CPU Request (Minimum) | CPU Limit (Maximum) |
+|--------------------------|-----------------------|---------------------|
+| Static file servers      | 50m                  | 200m                |
+| Lightweight REST APIs    | 100m                 | 500m                |
+| Medium-complexity APIs   | 200m                 | 1 CPU               |
+| High-complexity APIs     | 500m                 | 2-4 CPU             |
+| Heavy computational apps | 1 CPU                | 4+ CPU              |
+
+---
+
+### Best Practices
+1. Start Small and Scale:
+   - Start with conservative limits, e.g., `100m` request and `500m` limit.
+   - Monitor performance (latency, CPU usage) under typical and peak traffic.
+1. Enable horizontal autoscaling and configure/tune properly
+1. Load test
+1. Monitor and adjust
+
+### Key Considerations:
   1. Application complexity
   2. Database interactions
   3. External service calls
@@ -300,10 +364,10 @@ Key Considerations:
   5. Network latency
   6. Specific business logic
 
-Recommendations:
-- Start with lower limits and benchmark
-- Use load testing tools
-- Monitor application performance
-- Scale resources based on actual metrics
-
-Would you like me to elaborate on how to benchmark and optimize your Go application's performance?
+### Example Decision Flow
+1. Start with a baseline: `200m` request and `1 CPU` limit.
+2. Monitor:
+   - Is the average CPU usage consistently above 80% of the limit? **Increase the limit.**
+   - Is the CPU usage far below the request? **Lower the request or limit.**
+3. Test with a real-world traffic simulation.
+4. Enable autoscaling if traffic patterns vary significantly. 
