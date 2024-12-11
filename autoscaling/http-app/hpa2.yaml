@@ -1,11 +1,24 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
+metadata:
+  name: http-app-hpa2
 spec:
-  minReplicas: 2
-  maxReplicas: 10
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: http-app
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
   behavior:
     scaleUp:
-      stabilizationWindowSeconds: 60  # 1-minute delay before scaling up
+      stabilizationWindowSeconds: 10  # seconds delay before scaling up
       policies:
       - type: Percent
         value: 100    # Can double current replicas
@@ -16,7 +29,7 @@ spec:
       selectPolicy: Max  # Choose most aggressive policy
     
     scaleDown:
-      stabilizationWindowSeconds: 120  # 2-minute delay before scaling down
+      stabilizationWindowSeconds: 30  # seconds delay before scaling down
       policies:
       - type: Percent
         value: 50     # Can reduce by up to 50%

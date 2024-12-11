@@ -37,7 +37,7 @@ watch -n 2 "kubectl get pods -l app=http-app"
 watch -n 2 'echo "=== PODS ==="; kubectl get pods -l app=http-app -o wide; echo "\n=== HPA ==="; kubectl get hpa; echo "\n=== CPU & Memory USAGE (PODS) ==="; kubectl top pods -l app=http-app; echo "\n=== NODE CPU & MEMORY USAGE ==="; kubectl top nodes'
 # CPU and memory usage for pods
 watch -n 2 'kubectl top pods --use-protocol-buffers | awk '\''{if(NR>1)printf "%s: CPU %.1f%%, Mem %.1f%%\n", $1, ($2*100)/2000, ($3*100)/1024}'\'''
-
+kubectl logs metrics-viewer... 
 
 # Request limits for VPA
 kubectl get pods -l app=http-app -o jsonpath='{range .items[*]}{.metadata.name}{" - CPU: "}{.spec.containers[0].resources.requests.cpu}{" Memory: "}{.spec.containers[0].resources.requests.memory}{"\n"}{end}'
